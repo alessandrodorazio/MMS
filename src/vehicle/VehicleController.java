@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import helper.JDBC;
@@ -115,7 +114,7 @@ public class VehicleController {
 	}
 	
 	public static void update(Vehicle vehicle) {
-		boolean type = vehicle instanceof VehicleHeavy;
+
 		try {
 			PreparedStatement ps = JDBC.connect().prepareStatement("UPDATE Vehicle SET plate_number=?, brand=?, model=?, unitRate=?, year=?, axis=?, height=?, weight=?, noise_pollution=?, environmental_class=? WHERE plate_number=?");
 			ps.setString(1, vehicle.getPlateNumber());
@@ -133,6 +132,7 @@ public class VehicleController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public static Vehicle show(String plateNumber) { 

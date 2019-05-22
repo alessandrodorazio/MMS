@@ -2,15 +2,10 @@ package helper;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class JDBC {
-	
-	private static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
-	
+		
 	public static Connection connection;
 	
 	public static Connection connect() {

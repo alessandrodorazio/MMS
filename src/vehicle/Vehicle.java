@@ -3,7 +3,7 @@
  */
 package vehicle;
 
-import helper.Costants;
+import helper.Costant;
 
 /**
  * @author alessandrodorazio
@@ -18,7 +18,6 @@ public abstract class Vehicle {
 	public static class BuildVehicle {
 		
 		private String brand, model, plateNumber;
-		private char unitRate;
 		private int year, axis, weight, height, environmentalClass = 0, noisePollution = 0;
 				
 		public BuildVehicle(String plateNumber) {
@@ -70,7 +69,7 @@ public abstract class Vehicle {
 			v.brand = this.brand;
 			v.model = this.model;
 			v.plateNumber = this.plateNumber;
-			if(this.environmentalClass > 0 && this.environmentalClass <= Costants.EURO_MAX) v.environmentalClass = this.environmentalClass;
+			if(this.environmentalClass > 0 && this.environmentalClass <= Costant.EURO_MAX) v.environmentalClass = this.environmentalClass;
 			v.year = this.year;
 			v.axis = this.axis;
 			v.weight = this.weight;

@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 import helper.JDBC;
-import vehicle.Vehicle;
 
 /**
  * @author alessandrodorazio
