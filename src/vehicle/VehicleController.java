@@ -10,6 +10,10 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 import helper.JDBC;
+import motorway.EcoToll;
+import motorway.Motorway;
+import motorway.RegularToll;
+import tollbooth.Tollbooth;
 import vehicle.Vehicle.BuildVehicle;
 
 /**
@@ -52,26 +56,7 @@ public class VehicleController {
 				.withWeight(weight)
 				.withHeight(height);
 		Vehicle vehicle = builder.build();
-		boolean type = vehicle instanceof VehicleHeavy;
-		try {
-			PreparedStatement ps = JDBC.connect().prepareStatement("INSERT INTO Vehicle values(?,?,?,?,?,?,?,?,?,?,?)");
-			ps.setString(1, vehicle.getPlateNumber());
-			ps.setString(2, vehicle.getBrand());
-			ps.setString(3, vehicle.getModel());
-			ps.setBoolean(4, type);
-			ps.setString(5, Character.toString(vehicle.getUnitRate()));
-			ps.setInt(6, vehicle.getYear());
-			ps.setInt(7, vehicle.getAxis());
-			ps.setInt(8, vehicle.getHeight());
-			ps.setInt(9, vehicle.getWeight());
-			ps.setInt(10, vehicle.getNoisePollution());
-			ps.setInt(11, vehicle.getEnvironmentalClass());
-			ps.executeUpdate();
-			System.out.println(vehicle.getUnitRate());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
+		store(vehicle);		
 		return vehicle;
 		
 	}
@@ -165,12 +150,21 @@ public class VehicleController {
 		
 	}
 	
-	public static <T> LinkedList<T> tollHistory(String plateNumber) { //return ECOToll or related toll
-		LinkedList<T> history = new LinkedList<T>();
+	public static LinkedList<RegularToll> tollHistory(String plateNumber) { //return ECOToll or related toll
 		
-		//TODO
-		
+		Motorway motorway = Motorway.getInstance();
+		LinkedList<RegularToll> history = new LinkedList<RegularToll>();
+		try {
+			Statement statement = JDBC.connect().createStatement();
+			ResultSet resultSet = statement.executeQuery( "SELECT * FROM toll JOIN Tollbooth AS i ON Toll.in=Tollbooth.id JOIN Tollbooth AS o ON Toll.out=Tollbooth.id WHERE plate_number=" + plateNumber );
+			while(resultSet.next() ) {
+				history.add(new RegularToll(resultSet.getInt("toll.id"), plateNumber, resultSet.getFloat("cost"), new Tollbooth(resultSet.getString("i.name"), resultSet.getInt("i.km")), new Tollbooth(resultSet.getString("o.name"), resultSet.getInt("o.km"))));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return history; 
+		
 	}
 	
 }
