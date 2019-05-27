@@ -1,14 +1,16 @@
 CREATE DATABASE MMS;
 
 CREATE TABLE Motorway (
-  name varchar(255),
-  PRIMARY KEY (name)
+  id int NOT NULL AUTO_INCREMENT,
+  name varchar(255) NOT NULL,
+  reform int,
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE UnitRate (
-  id varchar(1) NOT NULL AUTO_INCREMENT,
-  rate float,
-  PRIMARY KEY (id)
+  category varchar(1) NOT NULL,
+  rate float NOT NULL,
+  PRIMARY KEY (category, rate)
 );
 
 CREATE TABLE Tollbooth (
