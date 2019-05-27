@@ -9,6 +9,7 @@ public class JDBC {
 	public static Connection connection;
 	
 	public static Connection connect() {
+		if(connection != null) return connection;
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/Motorway?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Rome", "root", "ciurialecs");
 			return connection;
@@ -26,5 +27,6 @@ public class JDBC {
 			e.printStackTrace();
 		}
 	}
+	
 	
 }
