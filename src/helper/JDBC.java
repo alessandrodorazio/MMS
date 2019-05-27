@@ -19,4 +19,12 @@ public class JDBC {
 		return null;
 	}
 	
+	public static void close(Connection connection) {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
