@@ -4,6 +4,7 @@
 package motorway;
 
 import helper.Helper;
+import helper.Costant;
 import tollbooth.Tollbooth;
 import vehicle.Vehicle;
 
@@ -18,7 +19,7 @@ public class RegularToll implements Toll {
 	float cost;
 	Tollbooth in, out;
 
-	RegularToll(int id, String vehicle, float cost, Tollbooth in, Tollbooth out) {
+	public RegularToll(int id, String vehicle, float cost, Tollbooth in, Tollbooth out) {
 		super();
 		this.id = id;
 		this.vehicle = vehicle;
@@ -32,7 +33,7 @@ public class RegularToll implements Toll {
 	public float tollCalc(Tollbooth in, Tollbooth out, Vehicle v) {
 		float km = routeCalc(in, out);
         if(km == 0) throw new Error("I due caselli coincidono"); //throw exception
-        float cost = km * Motorway.getInstance().getUnitRateSingle(v) * (1 + Helper.IVA); //calcolo del pedaggio
+        float cost = km * Motorway.getInstance().getUnitRateSingle(v) * (1 + Costant.IVA); //calcolo del pedaggio
         return Helper.round(cost); //arrotondiamo tramite la classe Helper
 	}
 
