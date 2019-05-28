@@ -20,7 +20,6 @@ import vehicle.Vehicle;
 public final class Motorway {
 
 	private int id;
-	public int reform = 0; //1 = 2021, 2 = 2026
 
 	private static Motorway motorway = new Motorway();
 	
@@ -35,7 +34,6 @@ public final class Motorway {
 			while(resultSet.next() ) {
 				this.id = resultSet.getInt("id");
 				this.name = resultSet.getString("name");
-				this.reform = resultSet.getInt("reform");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -62,7 +60,5 @@ public final class Motorway {
 	
 	public static final Motorway getInstance() { return motorway; }
 	
-	public int getReformState() { return motorway.reform; }
-	public void setReformState(int r) { motorway.reform = r; }
 	
 }
