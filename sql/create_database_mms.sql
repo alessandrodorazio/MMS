@@ -3,7 +3,6 @@ CREATE DATABASE MMS;
 CREATE TABLE Motorway (
   id int NOT NULL AUTO_INCREMENT,
   name varchar(255) NOT NULL,
-  reform int,
   PRIMARY KEY (id)
 );
 
