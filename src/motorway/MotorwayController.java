@@ -33,9 +33,8 @@ public class MotorwayController {
 		if(count > 0) ;//TODO exception
 		
 		try {
-			PreparedStatement ps = JDBC.connect().prepareStatement("INSERT INTO Motorway (name, reform) VALUES(?,?)");
+			PreparedStatement ps = JDBC.connect().prepareStatement("INSERT INTO Motorway (name) VALUES(?)");
 			ps.setString(1, name);
-			ps.setInt(2, reform);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
