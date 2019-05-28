@@ -10,9 +10,8 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 import helper.JDBC;
-import motorway.EcoToll;
 import motorway.Motorway;
-import motorway.RegularToll;
+import motorway.Toll;
 import tollbooth.Tollbooth;
 import vehicle.Vehicle.BuildVehicle;
 
@@ -150,15 +149,15 @@ public class VehicleController {
 		
 	}
 	
-	public static LinkedList<RegularToll> tollHistory(String plateNumber) { //return ECOToll or related toll
+	public static LinkedList<Toll> tollHistory(String plateNumber) {
 		
 		Motorway motorway = Motorway.getInstance();
-		LinkedList<RegularToll> history = new LinkedList<RegularToll>();
+		LinkedList<Toll> history = new LinkedList<Toll>();
 		try {
 			Statement statement = JDBC.connect().createStatement();
 			ResultSet resultSet = statement.executeQuery( "SELECT * FROM toll JOIN Tollbooth AS i ON Toll.in=Tollbooth.id JOIN Tollbooth AS o ON Toll.out=Tollbooth.id WHERE plate_number=" + plateNumber );
 			while(resultSet.next() ) {
-				history.add(new RegularToll(resultSet.getInt("toll.id"), plateNumber, resultSet.getFloat("cost"), new Tollbooth(resultSet.getString("i.name"), resultSet.getInt("i.km")), new Tollbooth(resultSet.getString("o.name"), resultSet.getInt("o.km"))));
+				history.add(new Toll(resultSet.getInt("toll.id"), plateNumber, resultSet.getFloat("cost"), new Tollbooth(resultSet.getString("i.name"), resultSet.getInt("i.km")), new Tollbooth(resultSet.getString("o.name"), resultSet.getInt("o.km"))));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
