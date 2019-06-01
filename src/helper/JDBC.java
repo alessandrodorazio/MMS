@@ -28,5 +28,15 @@ public class JDBC {
 		}
 	}
 	
+	public static boolean getStatus() {
+		if(connection != null) return true;
+		return false;
+	}
+	
+	public static String getStatusString() {
+		if(connection != null) return "Connesso";
+		return "Non connesso";
+	}
+	
 	
 }
