@@ -1,0 +1,20 @@
+.title {
+	-fx-font-family: "Avenir Next" !important;
+	-fx-font-size: 20pt !important; 
+}
+
+.subtitle {
+	-fx-font-size: 14pt !important;
+	
+}
+
+.label {
+	-fx-font-size: 10pt !important;
+	-fx-font-family: "Avenir Book" !important;
+}
+.btn_save {
+	-fx-background-color: #5CB85C !important;
+	-fx-text-fill: white !important;
+	-fx-font-size: 22px !important;
+	-fx-border-radius: 0 !important;
+}
