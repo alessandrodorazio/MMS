@@ -7,9 +7,8 @@ CREATE TABLE Motorway (
 );
 
 CREATE TABLE UnitRate (
-  category varchar(1) NOT NULL,
-  rate float NOT NULL,
-  PRIMARY KEY (category, rate)
+  category varchar(1) PRIMARY KEY,
+  rate float NOT NULL
 );
 
 CREATE TABLE Tollbooth (
