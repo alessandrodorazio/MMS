@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="600.0" stylesheets="@../../../css/default_style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="motorway_name" layoutX="14.0" layoutY="23.0" styleClass="title" text="Label" />
+      <TableView fx:id="unit_rate_table" layoutX="14.0" layoutY="115.0" prefHeight="200.0" prefWidth="234.0">
+        <columns>
+          <TableColumn fx:id="col_class_rate" prefWidth="130.0" text="Classe tariffaria" />
+          <TableColumn fx:id="col_rate" prefWidth="104.0" text="Tariffa" />
+        </columns>
+      </TableView>
+      <Label layoutX="14.0" layoutY="89.0" text="Tariffa unitaria per classe tariffaria" />
+   </children>
+</AnchorPane>

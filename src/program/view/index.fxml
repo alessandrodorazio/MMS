@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.HomeController">
+   <children>
+      <Rectangle fill="#008b7e" height="123.0" layoutY="549.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+      <Label layoutX="72.0" layoutY="24.0" text="MMS">
+         <font>
+            <Font name="Avenir Next Bold" size="36.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="36.0" fitWidth="47.0" layoutX="19.0" layoutY="27.0" onMouseClicked="#home">
+         <image>
+            <Image url="@../../../media/home.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="59.0" fitWidth="59.0" layoutX="270.0" layoutY="582.0" onMouseClicked="#btn_toll">
+         <image>
+            <Image url="@../../../media/cash-register.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="59.0" fitWidth="79.0" layoutX="61.0" layoutY="582.0" onMouseClicked="#btn_vehicles">
+         <image>
+            <Image url="@../../../media/car.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="anchor" layoutY="81.0" prefHeight="469.0" prefWidth="600.0" />
+      <ImageView fitHeight="59.0" fitWidth="59.0" layoutX="459.0" layoutY="582.0">
+         <image>
+            <Image url="@../../../media/store.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
