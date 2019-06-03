@@ -19,8 +19,8 @@ import helper.JDBC;
  */
 public class MotorwayController {
 
-	public static Motorway create(String name, int reform, Map<String, Float> unitRate) {
-		//TODO
+	public static boolean create(String name, Map<String, Float> unitRates) {
+		
 		int count = 0;
 		try {
 			Statement statement = JDBC.connect().createStatement();
@@ -30,7 +30,9 @@ public class MotorwayController {
 			e.printStackTrace();
 		}
 		
-		if(count > 0) ;//TODO exception
+		if(count > 0) {
+			return false;
+		}
 		
 		try {
 			PreparedStatement ps = JDBC.connect().prepareStatement("INSERT INTO Motorway (name) VALUES(?)");
@@ -42,17 +44,17 @@ public class MotorwayController {
 		
 		try {
 			PreparedStatement ps = JDBC.connect().prepareStatement("INSERT INTO UnitRate (category, rate) VALUES('A',?), ('B', ?), ('3', ?), ('4', ?), ('5', ?)");
-			ps.setFloat(1, unitRate.get("A"));
-			ps.setFloat(2, unitRate.get("B"));
-			ps.setFloat(3, unitRate.get("3"));
-			ps.setFloat(4, unitRate.get("4"));
-			ps.setFloat(5, unitRate.get("5"));
+			ps.setFloat(1, unitRates.get("A"));
+			ps.setFloat(2, unitRates.get("B"));
+			ps.setFloat(3, unitRates.get("3"));
+			ps.setFloat(4, unitRates.get("4"));
+			ps.setFloat(5, unitRates.get("5"));
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return Motorway.getInstance();
+		return true;
 		
 	}
 	
@@ -67,7 +69,7 @@ public class MotorwayController {
 		//PreparedStatement ps = JDBC.connect().prepareStatement("UPDATE Tollbooth SET name=?, km=? WHERE id=?");
 		//UPDATE UnitRate SET rate=? WHERE category=?
 		try {
-			PreparedStatement ps = JDBC.connect().prepareStatement("UPDATE Motorway SET name=?, reform=? WHERE id=?");
+			PreparedStatement ps = JDBC.connect().prepareStatement("UPDATE Motorway SET name=?  WHERE id=?");
 			
 			ps.executeUpdate();
 		} catch (SQLException e) {

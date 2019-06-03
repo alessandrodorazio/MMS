@@ -30,7 +30,7 @@ public final class Motorway {
 		this.unitRate = new HashMap<String, Float>();
 		try {
 			Statement statement = JDBC.connect().createStatement();
-			ResultSet resultSet = statement.executeQuery( "SELECT id, name, reform FROM Motorway LIMIT 1" );
+			ResultSet resultSet = statement.executeQuery( "SELECT id, name FROM Motorway LIMIT 1" );
 			while(resultSet.next() ) {
 				this.id = resultSet.getInt("id");
 				this.name = resultSet.getString("name");
