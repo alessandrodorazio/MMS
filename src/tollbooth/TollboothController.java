@@ -25,19 +25,21 @@ public class TollboothController {
 			while(resultSet.next() ) {
 				tollbooths.add( new Tollbooth(resultSet.getString("name"), resultSet.getInt("km")));
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return tollbooths;
 	}
 	
-	public static int create(Tollbooth tollbooth) {
+	public static int create(String name, int km) {
 		//if exist return error
 		//create model
 		//send data
 		//TODO
 		return 1;
 	}
+	
 	
 	public static void store(Tollbooth tollbooth) {
 		try {
