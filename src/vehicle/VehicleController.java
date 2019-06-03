@@ -131,12 +131,13 @@ public class VehicleController {
 						.withAxis(resultSet.getInt("axis"))
 						.withWeight(resultSet.getInt("weight"))
 						.withHeight(resultSet.getInt("height"))
+						.withNoisePollution(resultSet.getInt("noise_pollution"))
+						.withEnvironmentalClass(resultSet.getInt("environmental_class"))
 						.build();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return vehicle;
 	}
 	
@@ -146,11 +147,9 @@ public class VehicleController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public static LinkedList<Toll> tollHistory(String plateNumber) {
-		
 		Motorway motorway = Motorway.getInstance();
 		LinkedList<Toll> history = new LinkedList<Toll>();
 		try {
@@ -163,7 +162,6 @@ public class VehicleController {
 			e.printStackTrace();
 		}
 		return history; 
-		
 	}
 	
 }

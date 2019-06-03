@@ -142,7 +142,7 @@ public abstract class Vehicle {
 	protected int getNoisePollution() { return noisePollution; }
 	protected void setNoisePollution(int noisePollution) { this.noisePollution = noisePollution;}
 	
-	protected char getUnitRate() { return unitRate; }
+	public char getUnitRate() { return unitRate; }
 	protected void setUnitRate() {
 		int axis = (this.axis>5)?5:this.axis;
         unitRate = (axis==2 && this.height < 130)?'A':((axis==2)?'B':(char)(axis+'0'));
