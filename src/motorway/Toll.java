@@ -31,8 +31,8 @@ public class Toll {
 	public static float tollCalc(Tollbooth in, Tollbooth out, Vehicle v) {
 		float km = routeCalc(in, out);
         if(km == 0) throw new Error("I due caselli coincidono"); //throw exception
-        float cost = km * Motorway.getInstance().getUnitRateSingle(v) * (1 + Costant.IVA); //calcolo del pedaggio
-        return Helper.round(cost); //arrotondiamo tramite la classe Helper
+        float cost = km * Motorway.getInstance().getUnitRateSingle(v) * (1 + Costant.IVA);
+        return Helper.round(cost);
 	}
 
 	public static int routeCalc(Tollbooth in, Tollbooth out) {
