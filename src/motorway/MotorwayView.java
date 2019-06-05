@@ -31,6 +31,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import program.Program;
+import tollbooth.TollboothView;
 
 /**
  * @author alessandrodorazio
@@ -114,6 +115,18 @@ public class MotorwayView {
         rootLayout.getChildren().setAll(pane);
         
     }
+	
+	public static void tollCalc(AnchorPane rootLayout) {
+		// TODO Auto-generated method stub
+		AnchorPane pane = null;
+		try {
+			pane = FXMLLoader.load(MotorwayView.class.getResource("view/tollcalc.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        rootLayout.getChildren().setAll(pane);
+	}
 	
 	@FXML
 	void btn_save_create(ActionEvent event) {
