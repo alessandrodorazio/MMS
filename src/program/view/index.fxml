@@ -31,7 +31,7 @@
          </image>
       </ImageView>
       <AnchorPane fx:id="anchor" layoutY="81.0" prefHeight="469.0" prefWidth="600.0" />
-      <ImageView fitHeight="59.0" fitWidth="59.0" layoutX="459.0" layoutY="582.0">
+      <ImageView fitHeight="59.0" fitWidth="59.0" layoutX="459.0" layoutY="582.0" onMouseClicked="#btn_tollbooth">
          <image>
             <Image url="@../../../media/store.png" />
          </image>

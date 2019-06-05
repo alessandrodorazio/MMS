@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import motorway.MotorwayView;
+import tollbooth.TollboothView;
+import vehicle.VehicleView;
 
 public class HomeController {
 	
@@ -17,7 +19,6 @@ public class HomeController {
         try {
 			MotorwayView.show(anchor);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
@@ -25,22 +26,26 @@ public class HomeController {
     
     @FXML
     void home(MouseEvent event) {
-        System.out.println("WE");
+    	try {
+			MotorwayView.show(anchor);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
 	@FXML
     void btn_vehicles(MouseEvent event) {
-        System.out.println("WE");
+		VehicleView.index(anchor);
     }
 	
 	@FXML
 	void btn_toll(MouseEvent event) {
-        System.out.println("WE");
+        MotorwayView.tollCalc(anchor);
     }
 	
 	@FXML
-	void btn_settings(MouseEvent event) {
-        System.out.println("WE");
+	void btn_tollbooth(MouseEvent event) {
+        TollboothView.index(anchor);
     }
 	
 }
