@@ -21,6 +21,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -70,30 +71,9 @@ public class MotorwayView {
 	
 	@FXML
     public static void show(AnchorPane rootLayout) throws IOException {
-		/*
-		 * Motorway motorway = MotorwayController.show();
-
-		motorway_name.setText("ciao");
-		rate_a = new TextField(motorway.getUnitRate().get("A").toString());
-		rate_b = new TextField(motorway.getUnitRate().get("B").toString());
-		rate_3 = new TextField(motorway.getUnitRate().get("3").toString());
-		rate_4 = new TextField(motorway.getUnitRate().get("4").toString());
-		rate_5 = new TextField(motorway.getUnitRate().get("5").toString());
-    	Parent root;
-        try {
-            root = FXMLLoader.load(MotorwayView.class.getResource("view/show.fxml") );
-            stage = new Stage();
-            stage.setTitle("Dettagli autostrada");
-            stage.setScene(new Scene(root, 600, 310));
-            stage.setX(0);
-            stage.setY(0);
-            stage.show();
-            stage.toFront();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-		 */
+		
+		String motorway_name;
+		TextField rate_a, rate_b, rate_3, rate_4, rate_5, rate_e1, rate_e2, rate_e3, rate_e4, rate_e5, rate_e6;
 		
 		if(MotorwayController.show().getName() == null) {
 			MotorwayView.create(rootLayout);
@@ -102,15 +82,35 @@ public class MotorwayView {
 		
 		pane = FXMLLoader.load(MotorwayView.class.getResource("view/show.fxml"));
 		
-		Label motorway_name = ((Label) pane.lookup("#motorway_name"));
-        motorway_name.setText("Autostrada " + MotorwayController.show().getName());
+		((Label) pane.lookup("#motorway_name")).setText("Autostrada " + MotorwayController.show().getName());
         
-        TableView<Map<String, Float>> unit_rate_table =  ((TableView) pane.lookup("#unit_rate_table"));
-        ObservableList<Map<String, Float>> unit_rate_data = FXCollections.observableArrayList();
-        unit_rate_data.add(MotorwayController.show().getUnitRate());
-        
-        unit_rate_table.setItems(unit_rate_data);
-        
+		rate_a = (TextField) pane.lookup("#rate_a_val");
+		rate_b = (TextField) pane.lookup("#rate_b_val");
+		rate_3 = (TextField) pane.lookup("#rate_3_val");
+		rate_4 = (TextField) pane.lookup("#rate_4_val");
+		rate_5 = (TextField) pane.lookup("#rate_5_val");
+		
+		rate_e1 = (TextField) pane.lookup("#rate_e1_val");
+		rate_e2 = (TextField) pane.lookup("#rate_e2_val");
+		rate_e3 = (TextField) pane.lookup("#rate_e3_val");
+		rate_e4 = (TextField) pane.lookup("#rate_e4_val");
+		rate_e5 = (TextField) pane.lookup("#rate_e5_val");
+		rate_e6 = (TextField) pane.lookup("#rate_e6_val");
+		
+		rate_a.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
+		rate_b.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("B")));
+		rate_3.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("3")));
+		rate_4.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("4")));
+		rate_5.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("5")));
+
+		//ERROR IF NOT ADDED
+		rate_e1.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
+		rate_e2.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
+		rate_e3.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
+		rate_e4.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
+		rate_e5.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
+		rate_e6.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
+
         rootLayout.getChildren().setAll(pane);
         
     }
@@ -119,6 +119,7 @@ public class MotorwayView {
 	void btn_save_create(ActionEvent event) {
 		
 		String motorway_name, rate_a, rate_b, rate_3, rate_4, rate_5;
+		//TODO Unit Rates for E1-E6
 		motorway_name = ((TextField) pane.lookup("#motorway_name")).getText().toString();
 		rate_a = ((TextField) pane.lookup("#rate_a")).getText().toString();
 		rate_b = ((TextField) pane.lookup("#rate_b")).getText().toString();
