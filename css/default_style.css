@@ -1,17 +1,16 @@
 .title > .text {
-	-fx-font-family: "Avenir Next";
 	-fx-font-size: 20pt;
+	-fx-font-family: "Avenir Next" !important;
 }
 
 .subtitle > .text {
-	-fx-font-family: "Avenir Next";
 	-fx-font-size: 16pt;
 	
 }
 
 .text {
 	-fx-font-size: 12pt;
-	-fx-font-family: "Avenir Book" !important;
+	-fx-font-family: "Helvetica" !important;
 }
 .btn_save {
 	-fx-background-color: #5CB85C !important;
