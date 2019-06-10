@@ -58,24 +58,14 @@ public class MotorwayController {
 		
 	}
 	
+	//TODO CREATE AFTER REFORM (WITH E1-E6)
+	
 	public static Motorway show() { 
 		Motorway motorway = Motorway.getInstance();
 		return motorway;
 	}
 	
-	public static void update() { 
-		//TODO
-		//Prepared statement
-		//PreparedStatement ps = JDBC.connect().prepareStatement("UPDATE Tollbooth SET name=?, km=? WHERE id=?");
-		//UPDATE UnitRate SET rate=? WHERE category=?
-		try {
-			PreparedStatement ps = JDBC.connect().prepareStatement("UPDATE Motorway SET name=?  WHERE id=?");
-			
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+	//TODO UPDATE UNIT RATES
 	
 	
 }
