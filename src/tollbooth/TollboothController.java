@@ -21,9 +21,9 @@ public class TollboothController {
 		LinkedList<Tollbooth> tollbooths = new LinkedList<Tollbooth>();
 		try {
 			Statement statement = JDBC.connect().createStatement();
-			ResultSet resultSet = statement.executeQuery( "SELECT * FROM Vehicle" );
+			ResultSet resultSet = statement.executeQuery( "SELECT * FROM Tollbooth" );
 			while(resultSet.next() ) {
-				tollbooths.add( new Tollbooth(resultSet.getString("name"), resultSet.getInt("km")));
+				tollbooths.add( new Tollbooth(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getInt("km")));
 			}
 			
 		} catch (SQLException e) {
@@ -38,6 +38,21 @@ public class TollboothController {
 		//send data
 		//TODO
 		return 1;
+	}
+	
+	public static Tollbooth show(int id) {
+		Tollbooth t = null;
+		try {
+			Statement statement = JDBC.connect().createStatement();
+			ResultSet resultSet = statement.executeQuery( "SELECT * FROM Tollbooth WHERE id=" + id );
+			while(resultSet.next() ) {
+				t = new Tollbooth(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getInt("km"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return t;
 	}
 	
 	

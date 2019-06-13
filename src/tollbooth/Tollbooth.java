@@ -13,10 +13,10 @@ public class Tollbooth {
 	private String name;
 	private int km;
 	
-	public Tollbooth(String name, int km) {
+	public Tollbooth(int id, String name, int km) {
 		this.name = name;
 		this.km = km;
-		this.id = 1;
+		this.id = id;
 	}
 
 	public int getId() { return id; }
