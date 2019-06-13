@@ -13,6 +13,7 @@ import helper.JDBC;
 import motorway.Motorway;
 import motorway.Toll;
 import tollbooth.Tollbooth;
+import tollbooth.TollboothController;
 import vehicle.Vehicle.BuildVehicle;
 
 /**
@@ -48,6 +49,7 @@ public class VehicleController {
 	//constructor before reform
 	public static Vehicle create(String brand, String model, String plateNumber, int year, int axis,
 			int weight, int height) {
+		//CHECK IF ALREADY EXIST
 		BuildVehicle builder = new Vehicle.BuildVehicle(plateNumber)
 				.withBrandModel(model, brand)
 				.withYear(year)
@@ -123,7 +125,7 @@ public class VehicleController {
 		Vehicle vehicle = null;
 		try {
 			Statement statement = JDBC.connect().createStatement();
-			ResultSet resultSet = statement.executeQuery( "SELECT * FROM vehicle WHERE plate_number=" + plateNumber );
+			ResultSet resultSet = statement.executeQuery( "SELECT * FROM vehicle WHERE plate_number='" + plateNumber + "'" );
 			while(resultSet.next() ) {
 				vehicle = new Vehicle.BuildVehicle(resultSet.getString("plate_number"))
 						.withBrandModel(resultSet.getString("model"), resultSet.getString("brand"))
@@ -150,13 +152,15 @@ public class VehicleController {
 	}
 	
 	public static LinkedList<Toll> tollHistory(String plateNumber) {
-		Motorway motorway = Motorway.getInstance();
 		LinkedList<Toll> history = new LinkedList<Toll>();
 		try {
+			Tollbooth in, out;
 			Statement statement = JDBC.connect().createStatement();
-			ResultSet resultSet = statement.executeQuery( "SELECT * FROM toll JOIN Tollbooth AS i ON Toll.in=Tollbooth.id JOIN Tollbooth AS o ON Toll.out=Tollbooth.id WHERE plate_number=" + plateNumber );
+			ResultSet resultSet = statement.executeQuery( "SELECT * FROM Toll WHERE vehicle_id='" + plateNumber + "'" );
 			while(resultSet.next() ) {
-				history.add(new Toll(resultSet.getInt("toll.id"), plateNumber, resultSet.getFloat("cost"), new Tollbooth(resultSet.getString("i.name"), resultSet.getInt("i.km")), new Tollbooth(resultSet.getString("o.name"), resultSet.getInt("o.km"))));
+				in = TollboothController.show(resultSet.getInt("tollbooth_in"));
+				out = TollboothController.show(resultSet.getInt("tollbooth_out"));
+				history.add(new Toll(resultSet.getInt("toll.id"), plateNumber, resultSet.getFloat("cost"), in, out));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
