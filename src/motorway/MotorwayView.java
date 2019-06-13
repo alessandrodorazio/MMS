@@ -116,7 +116,8 @@ public class MotorwayView {
         
     }
 	
-	public static void tollCalc(AnchorPane rootLayout) {
+	@FXML
+	public static void toll(AnchorPane rootLayout) {
 		// TODO Auto-generated method stub
 		AnchorPane pane = null;
 		try {
@@ -125,7 +126,13 @@ public class MotorwayView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if(pane == null) pane = new AnchorPane();
         rootLayout.getChildren().setAll(pane);
+	}
+	
+	@FXML
+	void tollCalcBtn(ActionEvent e) {
+		
 	}
 	
 	@FXML
@@ -168,7 +175,6 @@ public class MotorwayView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		
 	}
   

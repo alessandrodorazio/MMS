@@ -4,6 +4,7 @@
 package vehicle;
 
 import helper.Costant;
+import javafx.beans.property.SimpleStringProperty;
 
 /**
  * @author alessandrodorazio
@@ -11,7 +12,7 @@ import helper.Costant;
  */
 public abstract class Vehicle {
 	
-	private String brand, model, plateNumber;
+	public String brand, model, plateNumber;
 	private char unitRate; //unitRate = AB345
 	private int year, axis, weight, height, environmentalClass, noisePollution;
 	
@@ -153,4 +154,19 @@ public abstract class Vehicle {
 		return unitRate;
 	}
 	
+	public SimpleStringProperty unitRateProperty() {
+		return new SimpleStringProperty(String.valueOf(getUnitRate()));
+	}
+	
+	public SimpleStringProperty plateNumberProperty() {
+		return new SimpleStringProperty(plateNumber);
+	}
+	
+	public SimpleStringProperty brandProperty() {
+		return new SimpleStringProperty(brand);
+	}
+	
+	public SimpleStringProperty modelProperty() {
+		return new SimpleStringProperty(model);
+	}
 }

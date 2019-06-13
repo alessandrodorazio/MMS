@@ -4,6 +4,7 @@
 package motorway;
 
 import helper.Helper;
+import javafx.beans.property.SimpleStringProperty;
 import helper.Costant;
 import tollbooth.Tollbooth;
 import vehicle.Vehicle;
@@ -38,6 +39,20 @@ public class Toll {
 	public static int routeCalc(Tollbooth in, Tollbooth out) {
 		return (in.getKm() > out.getKm())?(in.getKm() - out.getKm()):(out.getKm() - in.getKm());
 	}
+	
+	public SimpleStringProperty inProperty() {
+		return new SimpleStringProperty(in.getName());
+	}
+	
+	public SimpleStringProperty outProperty() {
+		return new SimpleStringProperty(out.getName());
+	}
+	
+	public SimpleStringProperty costProperty() {
+		return new SimpleStringProperty(Float.toString(cost));
+	}
+
+
 
 	
 }
