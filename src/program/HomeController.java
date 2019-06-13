@@ -16,6 +16,7 @@ public class HomeController {
 
     @FXML
     private void initialize() {
+    	
         try {
 			MotorwayView.show(anchor);
 		} catch (IOException e) {
@@ -40,12 +41,14 @@ public class HomeController {
 	
 	@FXML
 	void btn_toll(MouseEvent event) {
-        MotorwayView.tollCalc(anchor);
+        MotorwayView.toll(anchor);
     }
 	
 	@FXML
 	void btn_tollbooth(MouseEvent event) {
         TollboothView.index(anchor);
     }
+	
+	public AnchorPane getRootLayout() { return anchor; }
 	
 }
