@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="600.0" stylesheets="@../../../css/default_style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vehicle.VehicleView">
    <children>
-   	<Label layoutX="14.0" layoutY="14.0" prefHeight="33.0" prefWidth="245.0" styleClass="title" text="Dettagli veicolo">
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="282.0" styleClass="title" text="Dettagli veicolo">
          <font>
             <Font />
          </font>
@@ -13,5 +16,14 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </Label>
+      <Label fx:id="plate_number" layoutX="14.0" layoutY="63.0" styleClass="subtitle" text="PLATE NUMBER" />
+      <Label fx:id="brand_model_year" layoutX="14.0" layoutY="91.0" text="BRAND MODEL (YEAR)" />
+      <Label fx:id="axis" layoutX="14.0" layoutY="115.0" text="AXIS" />
+      <Label fx:id="unit_rate" layoutX="13.0" layoutY="139.0" text="UNIT RATE" />
+      <Label fx:id="environmental_class" layoutX="13.0" layoutY="162.0" text="ENVIRONMENTAL CLASS" />
+      <Label fx:id="height" layoutX="13.0" layoutY="187.0" text="HEIGHT" />
+      <Label fx:id="weight" layoutX="13.0" layoutY="214.0" text="WEIGHT" />
+      <Label fx:id="noise_pollution" layoutX="13.0" layoutY="238.0" text="NOISE POLLUTION" />
+      <Button layoutX="440.0" layoutY="430.0" mnemonicParsing="false" onAction="#toll_history_btn" styleClass="btn_save" text="Cronologia pedaggi" />
    </children>
 </AnchorPane>
