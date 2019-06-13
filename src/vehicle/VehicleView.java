@@ -95,6 +95,7 @@ public class VehicleView {
         rootLayout.getChildren().setAll(pane);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@FXML
 	public static void show(String plateNumber) { 
 		
@@ -124,21 +125,6 @@ public class VehicleView {
 			((Label) pane.lookup("#noise_pollution")).setText("Inquinamento acustico non disponibile");
 		}
 		
-        root.getChildren().setAll(pane);
-        
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@FXML
-	public static void toll_history(String plateNumber) {
-		AnchorPane pane = new AnchorPane();
-		try {
-			pane = FXMLLoader.load(VehicleView.class.getResource("view/toll_history.fxml"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		TableView table = (TableView) pane.lookup("#table");
 
 		TableColumn inColumn = new TableColumn("Entrata");
@@ -152,9 +138,12 @@ public class VehicleView {
 
 		table.getColumns().addAll(inColumn, outColumn, costColumn);
 		
-		table.getItems().addAll(VehicleController.tollHistory(plateNumber));
-		root.getChildren().setAll(pane);
+		table.getItems().addAll(VehicleController.tollHistory(v.getPlateNumber()));
+		
+        root.getChildren().setAll(pane);
+        
 	}
+	
 	
 	@FXML
 	void btn_create(ActionEvent e) {
@@ -199,11 +188,6 @@ public class VehicleView {
 		
 		index(root);
 		
-	}
-	
-	@FXML
-	void toll_history_btn(ActionEvent e) { 
-		toll_history( ((Label) pane.lookup("#plate_number")).getText().toString() );
 	}
 	
 }
