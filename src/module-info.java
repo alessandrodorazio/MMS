@@ -5,8 +5,11 @@ module mms {
 	requires javafx.controls;
 	requires javafx.fxml;
 	requires javafx.base;
+	requires java.base;
 	exports program;
 	exports motorway;
+	exports vehicle;
 	opens program to javafx.graphics, javafx.fxml;
 	opens motorway to javafx.graphics, javafx.fxml;
+	opens vehicle to javafx.graphics, javafx.fxml, javafx.base;
 }
