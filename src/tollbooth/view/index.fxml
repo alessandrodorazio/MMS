@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="600.0" stylesheets="@../../../css/default_style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tollbooth.TollboothView">
    <children>
-   	<Label layoutX="14.0" layoutY="14.0" prefHeight="33.0" prefWidth="245.0" styleClass="title" text="Lista caselli autostradali">
-         <font>
-            <Font />
-         </font>
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="169.0" styleClass="title" text="Lista caselli">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </Label>
+      <TableView fx:id="table" layoutX="14.0" layoutY="53.0" prefHeight="411.0" prefWidth="576.0">
+        <columns>
+          <TableColumn fx:id="km" prefWidth="75.0" text="KM" />
+          <TableColumn fx:id="name" prefWidth="425.0" text="Nome" />
+            <TableColumn fx:id="actions" prefWidth="90.0" text="Azioni" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
