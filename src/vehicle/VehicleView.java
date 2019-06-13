@@ -40,9 +40,10 @@ public class VehicleView {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@FXML
 	public static void index(AnchorPane rootLayout) { 
+		
 		root = rootLayout;
-
 		AnchorPane pane = new AnchorPane();
+		
 		try {
 			pane = FXMLLoader.load(VehicleView.class.getResource("view/index.fxml"));
 		} catch (IOException e) {
@@ -85,14 +86,11 @@ public class VehicleView {
 	@FXML
 	public static void create(AnchorPane rootLayout) { 
 		
-		AnchorPane pane = new AnchorPane();		
 		try {
 			pane = FXMLLoader.load(VehicleView.class.getResource("view/create.fxml"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		
         rootLayout.getChildren().setAll(pane);
 	}
@@ -106,7 +104,6 @@ public class VehicleView {
 		try {
 			pane = FXMLLoader.load(VehicleView.class.getResource("view/show.fxml"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -166,12 +163,11 @@ public class VehicleView {
 	
 	@FXML
 	void btn_save_create(ActionEvent e) {
-		//
 		String plateNumber, brand, model;
 		int year, axis, weight, height, noisePollution;
 		char environmentalClass;
 		Vehicle v;
-		
+
 		plateNumber = ((TextField) pane.lookup("#plate_number")).getText().toString();
 		brand = ((TextField) pane.lookup("#brand")).getText().toString();
 		model = ((TextField) pane.lookup("#model")).getText().toString();
@@ -189,7 +185,7 @@ public class VehicleView {
 		}
 		
 
-		if(noisePollution == 0 )
+		if(noisePollution == 0)
 			v = VehicleController.create(brand, model, plateNumber, year, axis, weight, height);
 		else
 			v = VehicleController.create(brand, model, plateNumber, environmentalClass, year, axis, weight, height, noisePollution);
