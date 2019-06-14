@@ -17,9 +17,15 @@
 	-fx-font-size: 10pt;
 	-fx-font-family: "Helvetica" !important;
 }
+
 .btn_save {
 	-fx-background-color: #5CB85C !important;
 	-fx-text-fill: white !important;
 	-fx-font-size: 22px !important;
-	-fx-border-radius: 0 !important;
+}
+
+.btn_delete {
+	-fx-background-color: #DC3545 !important;
+	-fx-text-fill: white !important;
+	-fx-font-size: 22px !important;
 }

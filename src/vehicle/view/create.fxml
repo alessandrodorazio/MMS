@@ -25,9 +25,9 @@
       <Label layoutX="427.0" layoutY="75.0" text="Modello" />
       <TextField fx:id="model" layoutX="427.0" layoutY="91.0" />
       <Label layoutX="14.0" layoutY="151.0" text="Anno" />
-      <TextField fx:id="axis" layoutX="135.0" layoutY="167.0" prefHeight="27.0" prefWidth="92.0" />
       <TextField fx:id="year" layoutX="14.0" layoutY="167.0" prefHeight="27.0" prefWidth="64.0" />
       <Label layoutX="135.0" layoutY="151.0" text="Assi" />
+       <TextField fx:id="axis" layoutX="135.0" layoutY="167.0" prefHeight="27.0" prefWidth="92.0" />
       <Label layoutX="258.0" layoutY="151.0" text="Peso (in kg)" />
       <TextField fx:id="weight" layoutX="258.0" layoutY="167.0" prefHeight="27.0" prefWidth="111.0" />
       <Label layoutX="394.0" layoutY="151.0" text="Altezza" />

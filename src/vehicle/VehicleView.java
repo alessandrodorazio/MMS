@@ -168,16 +168,12 @@ public class VehicleView {
 		if( ((TextField) pane.lookup("#noise_pollution")).isEditable() ) {
 			noisePollution = Integer.parseInt(((TextField) pane.lookup("#noise_pollution")).getText().toString());
 			environmentalClass = ((TextField) pane.lookup("#environmental_class")).getText().toString().charAt(0);
-		} else {
-			noisePollution = 0;
-			environmentalClass = '0';
-		}
-		
-
-		if(noisePollution == 0)
-			v = VehicleController.create(brand, model, plateNumber, year, axis, weight, height);
-		else
 			v = VehicleController.create(brand, model, plateNumber, environmentalClass, year, axis, weight, height, noisePollution);
+
+		} else {
+			v = VehicleController.create(brand, model, plateNumber, year, axis, weight, height);
+
+		}
 		
 		if(v!=null) {
 			Alert alert = new Alert(AlertType.INFORMATION, "Veicolo inserito", ButtonType.OK);
@@ -187,6 +183,21 @@ public class VehicleView {
 		}
 		
 		index(root);
+		
+	}
+	
+	@FXML
+	void delete_vehicle(ActionEvent e) {
+		//TODO INSERT ALERT, IF YES DELETE
+		
+		Alert alert = new Alert(AlertType.WARNING, "Sei sicuro di voler eliminare il veicolo?", ButtonType.NO, ButtonType.YES);
+		alert.showAndWait();
+		
+		if(alert.getResult() == ButtonType.YES) {
+			String plateNumber = ((Label) pane.lookup("#plate_number")).getText().toString();
+			VehicleController.delete(plateNumber);
+			index(root);
+		}
 		
 	}
 	
