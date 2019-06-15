@@ -57,11 +57,12 @@ public final class Motorway {
 
 	public Map<String, Float> getUnitRate() { return motorway.unitRate; }
 	protected void setUnitRate(Map<String, Float> unitRate) { motorway.unitRate = unitRate; }
-	public float getUnitRateSingle(Vehicle v) { return motorway.unitRate.get(v.getUnitRate()); }
-	public float getUnitRateSingle(String c) { 
-		return motorway.unitRate.get(c); 
-	}
-
+	public float getUnitRateSingle(Vehicle v) { return motorway.unitRate.get(String.valueOf(v.getUnitRate())); }
+	public float getEcoRateSingle(Vehicle v) { return motorway.unitRate.get("E" + String.valueOf(v.getEnvironmentalClass())); }
+	
+	public float getUnitRateSingle(String c) { return motorway.unitRate.get(c); }
+	
+	public static void refresh() { motorway = new Motorway(); }
 	
 	public static final Motorway getInstance() { return motorway; }
 	

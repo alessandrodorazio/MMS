@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import helper.JDBC;
+import tollbooth.Tollbooth;
+import vehicle.Vehicle;
 
 /**
  * @author alessandrodorazio
@@ -54,6 +56,8 @@ public class MotorwayController {
 			e.printStackTrace();
 		}
 		
+		Motorway.refresh();
+		
 		return true;
 		
 	}
@@ -66,6 +70,21 @@ public class MotorwayController {
 	}
 	
 	//TODO UPDATE UNIT RATES
+	
+	public static float tollCalc(Vehicle v, Tollbooth in, Tollbooth out) {
+		Toll toll = new Toll(v, in, out);
+		try {
+			PreparedStatement ps = JDBC.connect().prepareStatement("INSERT INTO Toll (vehicle_id, tollbooth_in, tollbooth_out, cost) VALUES(?,?,?,?)");
+			ps.setString(1, v.getPlateNumber());
+			ps.setInt(2, in.getId());
+			ps.setInt(3, out.getId());
+			ps.setFloat(4, toll.cost);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return toll.cost;
+	}
 	
 	
 }

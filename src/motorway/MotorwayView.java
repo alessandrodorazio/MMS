@@ -4,7 +4,9 @@
 package motorway;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import helper.Costant;
@@ -20,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -31,7 +34,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import program.Program;
+import tollbooth.Tollbooth;
+import tollbooth.TollboothController;
 import tollbooth.TollboothView;
+import vehicle.Vehicle;
+import vehicle.VehicleController;
 
 /**
  * @author alessandrodorazio
@@ -52,14 +59,15 @@ public class MotorwayView {
 	@FXML
 	private static TextField rate_5 = new TextField();
 	private static Stage stage;
-	static AnchorPane pane = null;
+	
+	static AnchorPane pane = new AnchorPane();
+	static AnchorPane root = new AnchorPane();
 	
 	@FXML
     private void initialize() {
         
     }
 	
-	@FXML
     public static void create(AnchorPane rootLayout) {
 		try {
 			pane = FXMLLoader.load(MotorwayView.class.getResource("view/create.fxml"));
@@ -70,18 +78,22 @@ public class MotorwayView {
         rootLayout.getChildren().setAll(pane);
     }
 	
-	@FXML
-    public static void show(AnchorPane rootLayout) throws IOException {
+    public static void show() {
 		
 		String motorway_name;
 		TextField rate_a, rate_b, rate_3, rate_4, rate_5, rate_e1, rate_e2, rate_e3, rate_e4, rate_e5, rate_e6;
 		
-		if(MotorwayController.show().getName() == null) {
-			MotorwayView.create(rootLayout);
+		if(Motorway.getInstance().getName() == null) {
+			MotorwayView.create(root);
 			return ;
 		}
 		
-		pane = FXMLLoader.load(MotorwayView.class.getResource("view/show.fxml"));
+		try {
+			pane = FXMLLoader.load(MotorwayView.class.getResource("view/show.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		((Label) pane.lookup("#motorway_name")).setText("Autostrada " + MotorwayController.show().getName());
         
@@ -104,7 +116,7 @@ public class MotorwayView {
 		rate_4.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("4")));
 		rate_5.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("5")));
 
-		//ERROR IF NOT ADDED
+		//ERROR IF NOT ADDED AFTER 2021
 		rate_e1.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
 		rate_e2.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
 		rate_e3.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
@@ -112,27 +124,52 @@ public class MotorwayView {
 		rate_e5.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
 		rate_e6.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
 
-        rootLayout.getChildren().setAll(pane);
+        root.getChildren().setAll(pane);
         
+    }
+	
+    public static void show(AnchorPane rootLayout) throws IOException {
+		root = rootLayout;
+		show();
     }
 	
 	@FXML
 	public static void toll(AnchorPane rootLayout) {
 		// TODO Auto-generated method stub
-		AnchorPane pane = null;
 		try {
 			pane = FXMLLoader.load(MotorwayView.class.getResource("view/tollcalc.fxml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(pane == null) pane = new AnchorPane();
+		if(pane == null) throw new Error(); //TODO
+		
+		ArrayList<String> vehicles = VehicleController.indexPlateNumber();
+		ComboBox vehiclesComboBox = (ComboBox) pane.lookup("#vehicle");
+		
+		ArrayList <String> tollbooths = TollboothController.indexName();
+		ComboBox tollboothInComboBox = (ComboBox) pane.lookup("#tollbooth_in");
+		ComboBox tollboothOutComboBox = (ComboBox) pane.lookup("#tollbooth_out");
+		
+		vehiclesComboBox.getItems().addAll(vehicles);
+		tollboothInComboBox.getItems().addAll(tollbooths);
+		tollboothOutComboBox.getItems().addAll(tollbooths);
+
         rootLayout.getChildren().setAll(pane);
 	}
 	
 	@FXML
 	void tollCalcBtn(ActionEvent e) {
-		
+		Vehicle v;
+		Tollbooth in, out;
+		Label displayCost;
+		v = VehicleController.show( ((ComboBox) pane.lookup("#vehicle")).getValue().toString() );
+		in = TollboothController.show( ((ComboBox) pane.lookup("#tollbooth_in")).getValue().toString() );
+		out = TollboothController.show( ((ComboBox) pane.lookup("#tollbooth_out")).getValue().toString() );
+
+		float cost = MotorwayController.tollCalc(v, in, out);
+		displayCost = (Label) pane.lookup("#cost");
+		displayCost.setText("Costo del pedaggio: " + String.valueOf(cost) + "0€");
 	}
 	
 	@FXML
@@ -169,12 +206,7 @@ public class MotorwayView {
 			if (alert.getResult() == ButtonType.OK) alert.close();
 		}
 		
-		try {
-			show((AnchorPane) pane.getParent());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		show();
 		
 	}
   
