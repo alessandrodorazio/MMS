@@ -3,6 +3,8 @@
  */
 package tollbooth;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  * @author alessandrodorazio
  *
@@ -27,6 +29,12 @@ public class Tollbooth {
 	public int getKm() { return km; }
 	public void setKm(int km) { this.km = km; }
 	
+	public SimpleStringProperty kmProperty() {
+		return new SimpleStringProperty(String.valueOf(this.getKm()));
+	}
 	
+	public SimpleStringProperty nameProperty() {
+		return new SimpleStringProperty(this.getName());
+	}
 	
 }
