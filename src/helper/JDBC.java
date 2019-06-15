@@ -11,7 +11,7 @@ public class JDBC {
 	public static Connection connect() {
 		if(connection != null) return connection;
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/Motorway?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Rome", "root", "ciurialecs");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/MMS?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Europe/Rome", "root", "ciurialecs");
 			return connection;
 		}
 		catch ( SQLException e ) {

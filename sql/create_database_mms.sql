@@ -7,7 +7,7 @@ CREATE TABLE Motorway (
 );
 
 CREATE TABLE UnitRate (
-  category varchar(1) PRIMARY KEY,
+  category varchar(2) PRIMARY KEY,
   rate float NOT NULL
 );
 
@@ -39,8 +39,10 @@ CREATE TABLE Toll (
   tollbooth_in int,
   tollbooth_out int,
   cost float,
+  toll_date date DEFAULT (CURRENT_DATE),
+  
   PRIMARY KEY (id),
-  FOREIGN KEY (`vehicle_id`) REFERENCES `Vehicle` (`plate_number`),
-  FOREIGN KEY (`tollbooth_in`) REFERENCES `Tollbooth` (`id`),
-  FOREIGN KEY (`tollbooth_out`) REFERENCES `Tollbooth` (`id`)
+  FOREIGN KEY (`vehicle_id`) REFERENCES `Vehicle` (`plate_number`) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (`tollbooth_in`) REFERENCES `Tollbooth` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (`tollbooth_out`) REFERENCES `Tollbooth` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 );
