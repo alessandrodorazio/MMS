@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import helper.JDBC;
@@ -27,7 +28,7 @@ public class VehicleController {
 		LinkedList<Vehicle> vehicles = new LinkedList<Vehicle>();
 		try {
 			Statement statement = JDBC.connect().createStatement();
-			ResultSet resultSet = statement.executeQuery( "SELECT * FROM vehicle" );
+			ResultSet resultSet = statement.executeQuery( "SELECT * FROM vehicle ORDER BY plate_number ASC" );
 			while(resultSet.next() ) {
 				vehicles.add( new Vehicle.BuildVehicle(resultSet.getString("plate_number"))
 						.withBrandModel(resultSet.getString("model"), resultSet.getString("brand"))
@@ -37,6 +38,22 @@ public class VehicleController {
 						.withHeight(resultSet.getInt("height"))
 						.build()
 				);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		return vehicles;
+	}
+	
+	public static ArrayList<String> indexPlateNumber() { 
+		ArrayList<String> vehicles = new ArrayList<String>();
+		try {
+			Statement statement = JDBC.connect().createStatement();
+			ResultSet resultSet = statement.executeQuery( "SELECT plate_number FROM vehicle ORDER BY plate_number ASC" );
+			while(resultSet.next() ) {
+				vehicles.add(resultSet.getString("plate_number"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -160,7 +177,7 @@ public class VehicleController {
 			while(resultSet.next() ) {
 				in = TollboothController.show(resultSet.getInt("tollbooth_in"));
 				out = TollboothController.show(resultSet.getInt("tollbooth_out"));
-				history.add(new Toll(resultSet.getInt("toll.id"), plateNumber, resultSet.getFloat("cost"), in, out));
+				history.add(new Toll(resultSet.getInt("toll.id"), show(plateNumber), resultSet.getFloat("cost"), in, out, resultSet.getDate("toll_date")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

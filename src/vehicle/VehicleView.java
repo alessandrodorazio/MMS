@@ -84,7 +84,7 @@ public class VehicleView {
 	}
 	
 	@FXML
-	public static void create(AnchorPane rootLayout) { 
+	public static void create() { 
 		
 		try {
 			pane = FXMLLoader.load(VehicleView.class.getResource("view/create.fxml"));
@@ -92,7 +92,7 @@ public class VehicleView {
 			e.printStackTrace();
 		}
 		
-        rootLayout.getChildren().setAll(pane);
+        root.getChildren().setAll(pane);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -135,8 +135,11 @@ public class VehicleView {
 		
 		TableColumn costColumn = new TableColumn("Costo");
 		costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
+		
+		TableColumn dateColumn = new TableColumn("Data");
+		dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-		table.getColumns().addAll(inColumn, outColumn, costColumn);
+		table.getColumns().addAll(inColumn, outColumn, costColumn, dateColumn);
 		
 		table.getItems().addAll(VehicleController.tollHistory(v.getPlateNumber()));
 		
@@ -147,7 +150,7 @@ public class VehicleView {
 	
 	@FXML
 	void btn_create(ActionEvent e) {
-		create(root);
+		create();
 	}
 	
 	@FXML
@@ -187,9 +190,7 @@ public class VehicleView {
 	}
 	
 	@FXML
-	void delete_vehicle(ActionEvent e) {
-		//TODO INSERT ALERT, IF YES DELETE
-		
+	void delete_vehicle(ActionEvent e) {		
 		Alert alert = new Alert(AlertType.WARNING, "Sei sicuro di voler eliminare il veicolo?", ButtonType.NO, ButtonType.YES);
 		alert.showAndWait();
 		
@@ -198,7 +199,6 @@ public class VehicleView {
 			VehicleController.delete(plateNumber);
 			index(root);
 		}
-		
 	}
 	
 }

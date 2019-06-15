@@ -122,10 +122,10 @@ public abstract class Vehicle {
 	protected String getModel() { return model; }
 	protected void setModel(String model) { this.model = model; }
 	
-	protected String getPlateNumber() { return plateNumber; }
+	public String getPlateNumber() { return plateNumber; }
 	protected void setPlateNumber(String plateNumber) { this.plateNumber = plateNumber; }
 	
-	protected int getEnvironmentalClass() { return environmentalClass; }
+	public int getEnvironmentalClass() { return environmentalClass; }
 	protected void setEnvironmentalClass(int environmentalClass) { this.environmentalClass = environmentalClass; }
 	
 	protected int getYear() { return year; }
