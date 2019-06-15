@@ -9,7 +9,9 @@ module mms {
 	exports program;
 	exports motorway;
 	exports vehicle;
+	exports tollbooth;
 	opens program to javafx.graphics, javafx.fxml;
 	opens motorway to javafx.graphics, javafx.fxml;
 	opens vehicle to javafx.graphics, javafx.fxml, javafx.base;
+	opens tollbooth to javafx.graphics, javafx.fxml;
 }
