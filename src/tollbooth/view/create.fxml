@@ -18,10 +18,11 @@
          </cursor>
       </Label>
       
-      <Button layoutX="419.0" layoutY="293.0" mnemonicParsing="false" onAction="#btn_save_create" styleClass="btn_save" text="Salva" />
       <Label layoutX="50.0" layoutY="176.0" text="Nome" />
       <TextField fx:id="name" layoutX="50.0" layoutY="198.0" />
       <TextField fx:id="km" layoutX="322.0" layoutY="198.0" />
       <Label layoutX="322.0" layoutY="176.0" text="Km" />
+      
+      <Button layoutX="419.0" layoutY="293.0" mnemonicParsing="false" onAction="#btn_save_create" styleClass="btn_save" text="Salva" />
    </children>
 </AnchorPane>

@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -34,6 +35,26 @@ public class TollboothView {
 		}
 		
 		TableView table = (TableView) pane.lookup("#table");
+		
+		//update tollbooth
+		table.setRowFactory(tv -> {
+            TableRow<Tollbooth> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Tollbooth rowV = row.getItem();
+                    
+                    ((Label) pane.lookup("#id")).setText(String.valueOf(rowV.getId()));
+                    ((TextField) pane.lookup("#name")).setText(rowV.getName());
+                    ((TextField) pane.lookup("#km")).setText(String.valueOf(rowV.getKm()));
+                    pane.lookup("#btn_delete").setVisible(true);
+                }
+                    
+            });
+            return row ;
+        });
+		
+		TableColumn idColumn = new TableColumn("id");
+		idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
 		TableColumn kmColumn = new TableColumn("km");
 		kmColumn.setCellValueFactory(new PropertyValueFactory<>("km"));
@@ -41,7 +62,7 @@ public class TollboothView {
 		TableColumn nameColumn = new TableColumn("Nome casello");
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		
-		table.getColumns().addAll(kmColumn, nameColumn);
+		table.getColumns().addAll(idColumn, kmColumn, nameColumn);
 		table.getItems().addAll(TollboothController.index());
 		
 		table.getSortOrder();
@@ -68,15 +89,43 @@ public class TollboothView {
 	
 	@FXML
 	void btn_save_create(ActionEvent e) {
-		String name = ((TextField) pane.lookup("#name")).getText().toString();
-		int km = Integer.valueOf(((TextField) pane.lookup("#km")).getText().toString());
-		TollboothController.create(name, km);
-		
-		Alert alert = new Alert(AlertType.INFORMATION, "Casello inserito", ButtonType.OK);
-		alert.showAndWait();
+		int id = Integer.valueOf(((Label) pane.lookup("#id")).getText());
+		if(id == 0) {
+			String name = ((TextField) pane.lookup("#name")).getText().toString();
+			int km = Integer.valueOf(((TextField) pane.lookup("#km")).getText().toString());
+			TollboothController.create(name, km);
+			
+			Alert alert = new Alert(AlertType.INFORMATION, "Casello aggiunto", ButtonType.OK);
+			alert.showAndWait();
 
-		if (alert.getResult() == ButtonType.OK) alert.close();
+			if (alert.getResult() == ButtonType.OK) alert.close();
+		}else {
+			String name = ((TextField) pane.lookup("#name")).getText().toString();
+			int km = Integer.valueOf(((TextField) pane.lookup("#km")).getText().toString());
+			TollboothController.update(id, name, km);
+			
+			Alert alert = new Alert(AlertType.INFORMATION, "Casello aggiunto", ButtonType.OK);
+			alert.showAndWait();
+
+			if (alert.getResult() == ButtonType.OK) alert.close();
+		}
+		
 		index();
+	}
+	
+	@FXML
+	void delete_tollbooth(ActionEvent e) {
+		int id = Integer.valueOf(((Label) pane.lookup("#id")).getText().toString());
+		TollboothController.delete(id);
+		index();
+	}
+	
+	@FXML 
+	void reset_field(ActionEvent e) {
+		((Label) pane.lookup("#id")).setText("");
+		((TextField) pane.lookup("#name")).setText("");
+        ((TextField) pane.lookup("#km")).setText("");
+        pane.lookup("#btn_delete").setVisible(false);
 	}
 
 }

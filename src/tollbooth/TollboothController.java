@@ -49,14 +49,29 @@ public class TollboothController {
 	}
 	
 	public static void create(String name, int km) {
+		//TODO if exist update
+		Tollbooth t = null;
 		try {
-			PreparedStatement ps = JDBC.connect().prepareStatement("INSERT INTO Tollbooth(name,km) values(?,?)");
-			ps.setString(1, name);
-			ps.setString(2, String.valueOf(km));
-			ps.executeUpdate();
+			Statement statement = JDBC.connect().createStatement();
+			ResultSet resultSet = statement.executeQuery( "SELECT * FROM Tollbooth WHERE name='" + name + "' AND km=" + km );
+			while(resultSet.next() ) {
+				t = new Tollbooth(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getInt("km"));
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		if(t==null) {
+			try {
+				PreparedStatement ps = JDBC.connect().prepareStatement("INSERT INTO Tollbooth(name,km) values(?,?)");
+				ps.setString(1, name);
+				ps.setString(2, String.valueOf(km));
+				ps.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	public static Tollbooth show(int id) {
@@ -86,6 +101,7 @@ public class TollboothController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		if(t == null) ;//throw error 
 		return t;
 	}
 	
@@ -113,9 +129,30 @@ public class TollboothController {
 		}
 	}
 	
+	public static void update(int id, String name, int km) {
+		try {
+			PreparedStatement ps = JDBC.connect().prepareStatement("UPDATE Tollbooth SET name=?, km=? WHERE id=?");
+			ps.setString(1, name);
+			ps.setInt(2, km);
+			ps.setInt(3, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void delete(int id) {
 		try {
 			JDBC.connect().prepareStatement("DELETE FROM Tollbooth WHERE id='" + id + "';").execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void delete(String name) {
+		//TODO check if exist
+		try {
+			JDBC.connect().prepareStatement("DELETE FROM Tollbooth WHERE name='" + name + "';").execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

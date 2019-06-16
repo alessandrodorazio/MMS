@@ -29,6 +29,10 @@ public class Tollbooth {
 	public int getKm() { return km; }
 	public void setKm(int km) { this.km = km; }
 	
+	public SimpleStringProperty idProperty() {
+		return new SimpleStringProperty(String.valueOf(this.getId()));
+	}
+	
 	public SimpleStringProperty kmProperty() {
 		return new SimpleStringProperty(String.valueOf(this.getKm()));
 	}
