@@ -95,6 +95,31 @@ public class VehicleView {
         root.getChildren().setAll(pane);
 	}
 	
+	@FXML
+	public static void edit(String plateNumber) { 
+		Vehicle v = VehicleController.show(plateNumber);
+		
+		try {
+			pane = FXMLLoader.load(VehicleView.class.getResource("view/create.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		((Label) pane.lookup("#title")).setText("Modifica veicolo");
+		((TextField) pane.lookup("#plate_number")).setText(v.getPlateNumber());
+		((TextField) pane.lookup("#brand")).setText(v.getBrand());
+		((TextField) pane.lookup("#model")).setText(v.getModel());
+		((TextField) pane.lookup("#axis")).setText(String.valueOf(v.getAxis()));
+		((TextField) pane.lookup("#environmental_class")).setText(String.valueOf(v.getEnvironmentalClass()));
+		((TextField) pane.lookup("#height")).setText(String.valueOf(v.getHeight()));
+		((TextField) pane.lookup("#weight")).setText(String.valueOf(v.getWeight()));
+		((TextField) pane.lookup("#noise_pollution")).setText(String.valueOf(v.getNoisePollution()));
+
+
+		
+        root.getChildren().setAll(pane);
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@FXML
 	public static void show(String plateNumber) { 
@@ -154,6 +179,11 @@ public class VehicleView {
 	}
 	
 	@FXML
+	void btn_edit(ActionEvent e) {
+		edit( ((Label) pane.lookup("#plate_number")).getText().toString() );
+	}
+	
+	@FXML
 	void btn_save_create(ActionEvent e) {
 		String plateNumber, brand, model;
 		int year, axis, weight, height, noisePollution;
@@ -167,7 +197,7 @@ public class VehicleView {
 		axis = Integer.parseInt(((TextField) pane.lookup("#axis")).getText().toString());
 		weight = Integer.parseInt(((TextField) pane.lookup("#weight")).getText().toString());
 		height = Integer.parseInt(((TextField) pane.lookup("#height")).getText().toString());
-		
+				
 		if( ((TextField) pane.lookup("#noise_pollution")).isEditable() ) {
 			noisePollution = Integer.parseInt(((TextField) pane.lookup("#noise_pollution")).getText().toString());
 			environmentalClass = ((TextField) pane.lookup("#environmental_class")).getText().toString().charAt(0);
@@ -175,8 +205,9 @@ public class VehicleView {
 
 		} else {
 			v = VehicleController.create(brand, model, plateNumber, year, axis, weight, height);
-
 		}
+		
+		if(VehicleController.show(plateNumber) == null) VehicleController.store(v); else VehicleController.update(v);
 		
 		if(v!=null) {
 			Alert alert = new Alert(AlertType.INFORMATION, "Veicolo inserito", ButtonType.OK);

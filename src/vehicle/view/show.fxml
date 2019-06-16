@@ -27,5 +27,6 @@
       <Label fx:id="noise_pollution" layoutX="13.0" layoutY="238.0" text="NOISE POLLUTION" />
       <TableView fx:id="table" layoutX="261.0" layoutY="26.0" prefHeight="434.0" prefWidth="325.0" />
       <Button layoutX="176.0" layoutY="428.0" mnemonicParsing="false" onAction="#delete_vehicle" styleClass="btn_delete" text="Elimina" />
+      <Button layoutX="14.0" layoutY="428.0" mnemonicParsing="false" onAction="#btn_edit" styleClass="btn_save" text="Modifica" />
    </children>
 </AnchorPane>

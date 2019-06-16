@@ -63,7 +63,7 @@ public class VehicleController {
 		return vehicles;
 	}
 	
-	//constructor before reform
+	//before reform
 	public static Vehicle create(String brand, String model, String plateNumber, int year, int axis,
 			int weight, int height) {
 		//CHECK IF ALREADY EXIST
@@ -73,13 +73,12 @@ public class VehicleController {
 				.withAxis(axis)
 				.withWeight(weight)
 				.withHeight(height);
-		Vehicle vehicle = builder.build();
-		store(vehicle);		
+		Vehicle vehicle = builder.build();	
 		return vehicle;
 		
 	}
 	
-	//constructor after reform
+	//after reform
 	public static Vehicle create(String brand, String model, String plateNumber, char environmentalClass, int year, int axis,
 			int weight, int height, int noisePollution) { 
 		BuildVehicle builder = new Vehicle.BuildVehicle(plateNumber)
@@ -90,7 +89,6 @@ public class VehicleController {
 				.withHeight(height)
 				.withNoisePollution(noisePollution);
 		Vehicle vehicle = builder.build();
-		store(vehicle);
 		
 		return vehicle;
 	}
