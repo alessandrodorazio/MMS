@@ -15,7 +15,9 @@ CREATE TABLE Tollbooth (
   id int NOT NULL AUTO_INCREMENT,
   name varchar(255),
   km int,
-  PRIMARY KEY (id)
+  
+  PRIMARY KEY (id),
+  UNIQUE(km)
 );
 
 CREATE TABLE Vehicle (
