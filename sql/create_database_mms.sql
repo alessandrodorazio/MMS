@@ -3,7 +3,7 @@ CREATE DATABASE MMS;
 CREATE TABLE Motorway (
   id int NOT NULL AUTO_INCREMENT,
   name varchar(255) NOT NULL,
-  type integer NOT NULL, //1=flat, 2=mountain
+  type integer NOT NULL, /*1=flat, 2=mountain*/
   PRIMARY KEY (id)
 );
 
@@ -28,11 +28,11 @@ CREATE TABLE Vehicle (
   type boolean,
   unitRate varchar(1),
   year int,
-  axis int,
-  height int,
+  axis int NOT NULL,
+  height int NOT NULL,
   weight int,
-  noise_pollution int,
-  environmental_class int,
+  noise_pollution int DEFAULT 0,
+  environmental_class int DEFAULT 1,
   PRIMARY KEY (plate_number)
 );
 
