@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import exception.FieldMissingException;
 import helper.Costant;
 import helper.JDBC;
 import javafx.collections.FXCollections;
@@ -164,14 +165,21 @@ public class MotorwayView {
 	}
 
 	@FXML
-	void tollCalcBtn(ActionEvent e) {
-		Vehicle v;
-		Tollbooth in, out;
+	void tollCalcBtn(ActionEvent e) throws FieldMissingException {
+		Vehicle v = null;
+		Tollbooth in = null, out = null;
 		Label displayCost;
-		v = VehicleController.show(((ComboBox) pane.lookup("#vehicle")).getValue().toString());
-		in = TollboothController.show(((ComboBox) pane.lookup("#tollbooth_in")).getValue().toString());
-		out = TollboothController.show(((ComboBox) pane.lookup("#tollbooth_out")).getValue().toString());
 
+		try {
+			v = VehicleController.show(((ComboBox) pane.lookup("#vehicle")).getValue().toString());
+			in = TollboothController.show(((ComboBox) pane.lookup("#tollbooth_in")).getValue().toString());
+			out = TollboothController.show(((ComboBox) pane.lookup("#tollbooth_out")).getValue().toString());
+		}catch(NullPointerException e1) {
+			throw new FieldMissingException();
+		}
+		
+	
+			
 		float cost = MotorwayController.tollCalc(v, in, out);
 		displayCost = (Label) pane.lookup("#cost");
 		displayCost.setText("Costo del pedaggio: " + String.valueOf(cost) + "0€");

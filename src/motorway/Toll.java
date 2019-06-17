@@ -6,11 +6,13 @@ package motorway;
 import helper.Helper;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import helper.Costant;
+import exception.SameTollboothException;
 import tollbooth.Tollbooth;
 import tollbooth.TollboothController;
 import vehicle.Vehicle;
@@ -31,8 +33,11 @@ public class Toll {
 		this.vehicle = v.getPlateNumber();
 		this.in = in.getId();
 		this.out = out.getId();
-		this.cost = tollCalc(in, out, v);
-		// send data
+		try {
+			this.cost = tollCalc(in, out, v);
+		} catch (SameTollboothException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Toll(int id, Vehicle v, float cost, Tollbooth in, Tollbooth out, Date date) {
@@ -44,13 +49,12 @@ public class Toll {
 		this.date = date;
 	}
 
-	public float tollCalc(Tollbooth in, Tollbooth out, Vehicle v) {
+	public float tollCalc(Tollbooth in, Tollbooth out, Vehicle v) throws SameTollboothException {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		float km = routeCalc(in, out);
 		float cost;
-        if(km == 0) throw new Error("I due caselli coincidono"); //throw exception
-        //if 2021 and heavy or 2026
-        if( ((year >= 2021) && (v.getUnitRateInt() > 1)) || (year >= 2026) ) {
+        if(km == 0) throw new SameTollboothException();
+        if( ((year >= 2021) && (v.getUnitRateInt() > 1)) || (year >= 2026) ) { // if 2021 only heavy, if 2026 all vehicles subjected to the reform
             cost = km * Motorway.getInstance().getEcoRateSingle(v) * (1 + Costant.IVA);
         }else {
             cost = km * Motorway.getInstance().getUnitRateSingle(v) * (1 + Costant.IVA);

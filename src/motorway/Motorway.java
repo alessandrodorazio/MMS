@@ -27,7 +27,6 @@ public final class Motorway {
 	private String name;
 	private Map<String, Float> unitRate;
 	private float type;
-	// TODO Unit Rate E1-E6
 
 	private Motorway() {
 		this.unitRate = new HashMap<String, Float>();

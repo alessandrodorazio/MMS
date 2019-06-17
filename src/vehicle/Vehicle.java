@@ -65,11 +65,11 @@ public abstract class Vehicle {
 
 		public Vehicle build() {
 			Vehicle v;
-			if (axis <= 2 && height <= 130)
+			if (axis < 2 || (axis == 2 && height <= 130))
 				v = new VehicleLight();
 			else
 				v = new VehicleHeavy();
-			// check parameters or return exception
+
 			v.brand = this.brand;
 			v.model = this.model;
 			v.plateNumber = this.plateNumber;
@@ -79,7 +79,7 @@ public abstract class Vehicle {
 			v.axis = this.axis;
 			v.weight = this.weight;
 			v.height = this.height;
-			v.setUnitRate(); // check domain
+			v.setUnitRate();
 			if (this.noisePollution != 0)
 				v.noisePollution = this.noisePollution;
 			return v;

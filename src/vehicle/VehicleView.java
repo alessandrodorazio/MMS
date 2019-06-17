@@ -6,6 +6,7 @@ package vehicle;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import exception.FieldMissingException;
 import helper.Helper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -183,7 +184,7 @@ public class VehicleView {
 	}
 
 	@FXML
-	void btn_save_create(ActionEvent e) {
+	void btn_save_create(ActionEvent e) throws FieldMissingException {
 		String plateNumber, brand, model;
 		int year, axis, weight, height, noisePollution;
 		char environmentalClass;
@@ -198,12 +199,7 @@ public class VehicleView {
 		height = Helper.intFromString(((TextField) pane.lookup("#height")).getText().toString());
 
 		if(plateNumber.isBlank() || axis == 0 || height ==0) {
-			Alert alert = new Alert(AlertType.ERROR, "Compila i campi obbligatori*", ButtonType.OK);
-			alert.showAndWait();
-
-			if (alert.getResult() == ButtonType.OK)
-				alert.close();
-			return ;
+			throw new FieldMissingException();
 		}
 		
 		if (((TextField) pane.lookup("#noise_pollution")).isEditable()) {
