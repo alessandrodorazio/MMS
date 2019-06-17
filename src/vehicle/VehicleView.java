@@ -190,7 +190,7 @@ public class VehicleView {
 		char environmentalClass;
 		Vehicle v;
 
-		plateNumber = ((TextField) pane.lookup("#plate_number")).getText().toString();
+		plateNumber = ((TextField) pane.lookup("#plate_number")).getText().toString().toUpperCase();
 		brand = ((TextField) pane.lookup("#brand")).getText().toString();
 		model = ((TextField) pane.lookup("#model")).getText().toString();
 		year = Integer.parseInt(((TextField) pane.lookup("#year")).getText().toString());
