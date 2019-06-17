@@ -18,15 +18,15 @@
          </cursor>
       </Label>
       <Label fx:id="plate_number" layoutX="14.0" layoutY="63.0" styleClass="subtitle" text="PLATE NUMBER" />
-      <Label fx:id="brand_model_year" layoutX="14.0" layoutY="91.0" text="BRAND MODEL (YEAR)" />
-      <Label fx:id="axis" layoutX="14.0" layoutY="115.0" text="AXIS" />
-      <Label fx:id="unit_rate" layoutX="13.0" layoutY="139.0" text="UNIT RATE" />
-      <Label fx:id="environmental_class" layoutX="13.0" layoutY="162.0" text="ENVIRONMENTAL CLASS" />
-      <Label fx:id="height" layoutX="13.0" layoutY="187.0" text="HEIGHT" />
-      <Label fx:id="weight" layoutX="13.0" layoutY="214.0" text="WEIGHT" />
-      <Label fx:id="noise_pollution" layoutX="13.0" layoutY="238.0" text="NOISE POLLUTION" />
+      <Label fx:id="brand_model_year" layoutX="15.0" layoutY="84.0" text="BRAND MODEL (YEAR)" />
+      <Label fx:id="axis" layoutX="14.0" layoutY="101.0" text="AXIS" />
+      <Label fx:id="unit_rate" layoutX="13.0" layoutY="117.0" text="UNIT RATE" />
+      <Label fx:id="environmental_class" layoutX="13.0" layoutY="134.0" text="ENVIRONMENTAL CLASS" />
+      <Label fx:id="height" layoutX="13.0" layoutY="150.0" text="HEIGHT" />
+      <Label fx:id="weight" layoutX="13.0" layoutY="166.0" text="WEIGHT" />
+      <Label fx:id="noise_pollution" layoutX="13.0" layoutY="182.0" text="NOISE POLLUTION" />
       <TableView fx:id="table" layoutX="261.0" layoutY="26.0" prefHeight="434.0" prefWidth="325.0" />
-      <Button layoutX="176.0" layoutY="428.0" mnemonicParsing="false" onAction="#delete_vehicle" styleClass="btn_delete" text="Elimina" />
-      <Button layoutX="14.0" layoutY="428.0" mnemonicParsing="false" onAction="#btn_edit" styleClass="btn_save" text="Modifica" />
+      <Button layoutX="16.0" layoutY="271.0" mnemonicParsing="false" onAction="#delete_vehicle" styleClass="btn_delete" text="Elimina" />
+      <Button layoutX="13.0" layoutY="227.0" mnemonicParsing="false" onAction="#btn_edit" styleClass="btn_save" text="Modifica" />
    </children>
 </AnchorPane>

@@ -36,5 +36,6 @@
             <Image url="@../../../media/store.png" />
          </image>
       </ImageView>
+      <Label layoutX="447.0" layoutY="6.0" text="Alessandro D'Orazio 2019" />
    </children>
 </AnchorPane>

@@ -28,83 +28,84 @@ import javafx.stage.Window;
 import motorway.MotorwayView;
 import program.HomeController;
 import motorway.Toll;
+
 /**
  * @author alessandrodorazio
  *
  */
 public class VehicleView {
-	
+
 	static AnchorPane pane = new AnchorPane();
 	static AnchorPane root = new AnchorPane();
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@FXML
-	public static void index(AnchorPane rootLayout) { 
-		
+	public static void index(AnchorPane rootLayout) {
+
 		root = rootLayout;
 		AnchorPane pane = new AnchorPane();
-		
+
 		try {
 			pane = FXMLLoader.load(VehicleView.class.getResource("view/index.fxml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		TableView table = (TableView) pane.lookup("#table");
-		
+
 		table.setRowFactory(tv -> {
-            TableRow<Vehicle> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    Vehicle rowV = row.getItem();
-                    show(rowV.getPlateNumber());
-                }
-            });
-            return row ;
-        });
+			TableRow<Vehicle> row = new TableRow<>();
+			row.setOnMouseClicked(event -> {
+				if (event.getClickCount() == 2 && (!row.isEmpty())) {
+					Vehicle rowV = row.getItem();
+					show(rowV.getPlateNumber());
+				}
+			});
+			return row;
+		});
 
 		TableColumn unitRateColumn = new TableColumn("Classe");
 		unitRateColumn.setCellValueFactory(new PropertyValueFactory<>("unitRate"));
-		
+
 		TableColumn plateNumberColumn = new TableColumn("Targa");
 		plateNumberColumn.setCellValueFactory(new PropertyValueFactory<>("plateNumber"));
-		
+
 		TableColumn brandColumn = new TableColumn("Marca");
 		brandColumn.setCellValueFactory(new PropertyValueFactory<>("brand"));
-		
+
 		TableColumn modelColumn = new TableColumn("Modello");
 		modelColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
 
 		table.getColumns().addAll(unitRateColumn, plateNumberColumn, brandColumn, modelColumn);
-		
+
 		table.getItems().addAll(VehicleController.index());
 		rootLayout.getChildren().setAll(pane);
-		
+
 	}
-	
+
 	@FXML
-	public static void create() { 
-		
+	public static void create() {
+
 		try {
 			pane = FXMLLoader.load(VehicleView.class.getResource("view/create.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-        root.getChildren().setAll(pane);
+
+		root.getChildren().setAll(pane);
 	}
-	
+
 	@FXML
-	public static void edit(String plateNumber) { 
+	public static void edit(String plateNumber) {
 		Vehicle v = VehicleController.show(plateNumber);
-		
+
 		try {
 			pane = FXMLLoader.load(VehicleView.class.getResource("view/create.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		((Label) pane.lookup("#title")).setText("Modifica veicolo");
 		((TextField) pane.lookup("#plate_number")).setText(v.getPlateNumber());
 		((TextField) pane.lookup("#brand")).setText(v.getBrand());
@@ -115,74 +116,72 @@ public class VehicleView {
 		((TextField) pane.lookup("#weight")).setText(String.valueOf(v.getWeight()));
 		((TextField) pane.lookup("#noise_pollution")).setText(String.valueOf(v.getNoisePollution()));
 
-
-		
-        root.getChildren().setAll(pane);
+		root.getChildren().setAll(pane);
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@FXML
-	public static void show(String plateNumber) { 
-		
+	public static void show(String plateNumber) {
+
 		Label plate_number, brand_model_year, axis, unitRate, weight, height, noisePollution, environmentalClass;
 		Vehicle v = VehicleController.show(plateNumber);
-		
+
 		try {
 			pane = FXMLLoader.load(VehicleView.class.getResource("view/show.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		((Label) pane.lookup("#plate_number")).setText(v.getPlateNumber());
-		((Label) pane.lookup("#brand_model_year")).setText(v.getBrand() + " " + v.getModel() + " (" + v.getYear() + ")");
-		
+		((Label) pane.lookup("#brand_model_year"))
+				.setText(v.getBrand() + " " + v.getModel() + " (" + v.getYear() + ")");
+
 		((Label) pane.lookup("#axis")).setText(Integer.toString(v.getAxis()) + " assi");
-		
+
 		((Label) pane.lookup("#unit_rate")).setText("Classe " + v.getUnitRate());
 		((Label) pane.lookup("#environmental_class")).setText("Euro " + Integer.toString(v.getEnvironmentalClass()));
-		
+
 		((Label) pane.lookup("#height")).setText(Integer.toString(v.getHeight()) + "cm");
 		((Label) pane.lookup("#weight")).setText(Integer.toString(v.getWeight()) + "kg");
-		
-		if(v.getNoisePollution() != 0) {
+
+		if (v.getNoisePollution() != 0) {
 			((Label) pane.lookup("#noise_pollution")).setText(Integer.toString(v.getNoisePollution()) + "db");
-		}else {
+		} else {
 			((Label) pane.lookup("#noise_pollution")).setText("Inquinamento acustico non disponibile");
 		}
-		
+
 		TableView table = (TableView) pane.lookup("#table");
 
 		TableColumn inColumn = new TableColumn("Entrata");
 		inColumn.setCellValueFactory(new PropertyValueFactory<>("in"));
-		
+
 		TableColumn outColumn = new TableColumn("Uscita");
 		outColumn.setCellValueFactory(new PropertyValueFactory<>("out"));
-		
+
 		TableColumn costColumn = new TableColumn("Costo");
 		costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
-		
+
 		TableColumn dateColumn = new TableColumn("Data");
 		dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
 		table.getColumns().addAll(inColumn, outColumn, costColumn, dateColumn);
-		
+
 		table.getItems().addAll(VehicleController.tollHistory(v.getPlateNumber()));
-		
-        root.getChildren().setAll(pane);
-        
+
+		root.getChildren().setAll(pane);
+
 	}
-	
-	
+
 	@FXML
 	void btn_create(ActionEvent e) {
 		create();
 	}
-	
+
 	@FXML
 	void btn_edit(ActionEvent e) {
-		edit( ((Label) pane.lookup("#plate_number")).getText().toString() );
+		edit(((Label) pane.lookup("#plate_number")).getText().toString());
 	}
-	
+
 	@FXML
 	void btn_save_create(ActionEvent e) {
 		String plateNumber, brand, model;
@@ -197,39 +196,44 @@ public class VehicleView {
 		axis = Integer.parseInt(((TextField) pane.lookup("#axis")).getText().toString());
 		weight = Integer.parseInt(((TextField) pane.lookup("#weight")).getText().toString());
 		height = Integer.parseInt(((TextField) pane.lookup("#height")).getText().toString());
-				
-		if( ((TextField) pane.lookup("#noise_pollution")).isEditable() ) {
+
+		if (((TextField) pane.lookup("#noise_pollution")).isEditable()) {
 			noisePollution = Integer.parseInt(((TextField) pane.lookup("#noise_pollution")).getText().toString());
 			environmentalClass = ((TextField) pane.lookup("#environmental_class")).getText().toString().charAt(0);
-			v = VehicleController.create(brand, model, plateNumber, environmentalClass, year, axis, weight, height, noisePollution);
+			v = VehicleController.create(brand, model, plateNumber, environmentalClass, year, axis, weight, height,
+					noisePollution);
 
 		} else {
 			v = VehicleController.create(brand, model, plateNumber, year, axis, weight, height);
 		}
-		
-		if(VehicleController.show(plateNumber) == null) VehicleController.store(v); else VehicleController.update(v);
-		
-		if(v!=null) {
+
+		if (VehicleController.show(plateNumber) == null)
+			VehicleController.store(v);
+		else
+			VehicleController.update(v);
+
+		if (v != null) {
 			Alert alert = new Alert(AlertType.INFORMATION, "Veicolo inserito", ButtonType.OK);
 			alert.showAndWait();
-
-			if (alert.getResult() == ButtonType.OK) alert.close();
+			if (alert.getResult() == ButtonType.OK)
+				alert.close();
 		}
-		
+
 		index(root);
-		
+
 	}
-	
+
 	@FXML
-	void delete_vehicle(ActionEvent e) {		
-		Alert alert = new Alert(AlertType.WARNING, "Sei sicuro di voler eliminare il veicolo?", ButtonType.NO, ButtonType.YES);
+	void delete_vehicle(ActionEvent e) {
+		Alert alert = new Alert(AlertType.WARNING, "Sei sicuro di voler eliminare il veicolo?", ButtonType.NO,
+				ButtonType.YES);
 		alert.showAndWait();
-		
-		if(alert.getResult() == ButtonType.YES) {
+
+		if (alert.getResult() == ButtonType.YES) {
 			String plateNumber = ((Label) pane.lookup("#plate_number")).getText().toString();
 			VehicleController.delete(plateNumber);
 			index(root);
 		}
 	}
-	
+
 }

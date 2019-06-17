@@ -20,7 +20,7 @@ import vehicle.Vehicle;
  *
  */
 public class Toll {
-	
+
 	int id;
 	String vehicle;
 	float cost;
@@ -32,10 +32,9 @@ public class Toll {
 		this.in = in.getId();
 		this.out = out.getId();
 		this.cost = tollCalc(in, out, v);
-		//send data
+		// send data
 	}
 
-	
 	public Toll(int id, Vehicle v, float cost, Tollbooth in, Tollbooth out, Date date) {
 		this.id = id;
 		this.vehicle = v.getPlateNumber();
@@ -61,24 +60,23 @@ public class Toll {
 	}
 
 	public static int routeCalc(Tollbooth in, Tollbooth out) {
-		return (in.getKm() > out.getKm())?(in.getKm() - out.getKm()):(out.getKm() - in.getKm());
+		return (in.getKm() > out.getKm()) ? (in.getKm() - out.getKm()) : (out.getKm() - in.getKm());
 	}
-	
+
 	public SimpleStringProperty inProperty() {
 		return new SimpleStringProperty(TollboothController.show(in).getName());
 	}
-	
+
 	public SimpleStringProperty outProperty() {
 		return new SimpleStringProperty(TollboothController.show(out).getName());
 	}
-	
+
 	public SimpleStringProperty costProperty() {
 		return new SimpleStringProperty(Float.toString(cost));
 	}
 
-
 	public SimpleStringProperty dateProperty() {
-		return new SimpleStringProperty( new SimpleDateFormat("dd/MM/yyyy").format(date).toString());
+		return new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy").format(date).toString());
 	}
-	
+
 }

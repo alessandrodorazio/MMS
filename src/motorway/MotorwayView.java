@@ -60,64 +60,64 @@ public class MotorwayView {
 	@FXML
 	private static TextField rate_5 = new TextField();
 	private static Stage stage;
-	
+
 	static AnchorPane pane = new AnchorPane();
 	static AnchorPane root = new AnchorPane();
-	
+
 	@FXML
-    private void initialize() {
-        
-    }
-	
-    public static void create(AnchorPane rootLayout) {
+	private void initialize() {
+
+	}
+
+	public static void create(AnchorPane rootLayout) {
 		try {
 			pane = FXMLLoader.load(MotorwayView.class.getResource("view/create.fxml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        rootLayout.getChildren().setAll(pane);
-    }
-	
-    public static void show() {
-		
+		rootLayout.getChildren().setAll(pane);
+	}
+
+	public static void show() {
+
 		String motorway_name;
 		TextField rate_a, rate_b, rate_3, rate_4, rate_5, rate_e1, rate_e2, rate_e3, rate_e4, rate_e5, rate_e6;
-		
-		if(Motorway.getInstance().getName() == null) {
+
+		if (Motorway.getInstance().getName() == null) {
 			MotorwayView.create(root);
-			return ;
+			return;
 		}
-		
+
 		try {
 			pane = FXMLLoader.load(MotorwayView.class.getResource("view/show.fxml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		((Label) pane.lookup("#motorway_name")).setText("Autostrada " + MotorwayController.show().getName());
-        
+
 		rate_a = (TextField) pane.lookup("#rate_a_val");
 		rate_b = (TextField) pane.lookup("#rate_b_val");
 		rate_3 = (TextField) pane.lookup("#rate_3_val");
 		rate_4 = (TextField) pane.lookup("#rate_4_val");
 		rate_5 = (TextField) pane.lookup("#rate_5_val");
-		
+
 		rate_e1 = (TextField) pane.lookup("#rate_e1_val");
 		rate_e2 = (TextField) pane.lookup("#rate_e2_val");
 		rate_e3 = (TextField) pane.lookup("#rate_e3_val");
 		rate_e4 = (TextField) pane.lookup("#rate_e4_val");
 		rate_e5 = (TextField) pane.lookup("#rate_e5_val");
 		rate_e6 = (TextField) pane.lookup("#rate_e6_val");
-		
+
 		rate_a.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
 		rate_b.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("B")));
 		rate_3.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("3")));
 		rate_4.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("4")));
 		rate_5.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("5")));
 
-		//ERROR IF NOT ADDED AFTER 2021
+		// ERROR IF NOT ADDED AFTER 2021
 		rate_e1.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("E1")));
 		rate_e2.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("E2")));
 		rate_e3.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("E3")));
@@ -125,15 +125,15 @@ public class MotorwayView {
 		rate_e5.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("E5")));
 		rate_e6.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("E6")));
 
-        root.getChildren().setAll(pane);
-        
-    }
-	
-    public static void show(AnchorPane rootLayout) throws IOException {
+		root.getChildren().setAll(pane);
+
+	}
+
+	public static void show(AnchorPane rootLayout) throws IOException {
 		root = rootLayout;
 		show();
-    }
-	
+	}
+
 	@FXML
 	public static void toll(AnchorPane rootLayout) {
 		// TODO Auto-generated method stub
@@ -143,50 +143,52 @@ public class MotorwayView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(pane == null) throw new Error(); //TODO
-		
+		if (pane == null)
+			throw new Error(); // TODO
+
 		ArrayList<String> vehicles = VehicleController.indexPlateNumber();
 		ComboBox vehiclesComboBox = (ComboBox) pane.lookup("#vehicle");
-		
-		ArrayList <String> tollbooths = TollboothController.indexName();
+
+		ArrayList<String> tollbooths = TollboothController.indexName();
 		ComboBox tollboothInComboBox = (ComboBox) pane.lookup("#tollbooth_in");
 		ComboBox tollboothOutComboBox = (ComboBox) pane.lookup("#tollbooth_out");
-		
+
 		vehiclesComboBox.getItems().addAll(vehicles);
 		tollboothInComboBox.getItems().addAll(tollbooths);
 		tollboothOutComboBox.getItems().addAll(tollbooths);
 
-        rootLayout.getChildren().setAll(pane);
+		rootLayout.getChildren().setAll(pane);
 	}
-	
+
 	@FXML
 	void tollCalcBtn(ActionEvent e) {
 		Vehicle v;
 		Tollbooth in, out;
 		Label displayCost;
-		v = VehicleController.show( ((ComboBox) pane.lookup("#vehicle")).getValue().toString() );
-		in = TollboothController.show( ((ComboBox) pane.lookup("#tollbooth_in")).getValue().toString() );
-		out = TollboothController.show( ((ComboBox) pane.lookup("#tollbooth_out")).getValue().toString() );
+		v = VehicleController.show(((ComboBox) pane.lookup("#vehicle")).getValue().toString());
+		in = TollboothController.show(((ComboBox) pane.lookup("#tollbooth_in")).getValue().toString());
+		out = TollboothController.show(((ComboBox) pane.lookup("#tollbooth_out")).getValue().toString());
 
 		float cost = MotorwayController.tollCalc(v, in, out);
 		displayCost = (Label) pane.lookup("#cost");
 		displayCost.setText("Costo del pedaggio: " + String.valueOf(cost) + "0€");
 	}
-	
+
 	@FXML
 	void btn_save_create(ActionEvent event) {
-		
-		String motorway_name, rate_a, rate_b, rate_3, rate_4, rate_5, rate_e1, rate_e2, rate_e3, rate_e4, rate_e5, rate_e6;
-		Map<String, Float> unitRates = new HashMap<String,Float>();
-		int type = ((CheckBox) pane.lookup("#type")).isSelected()?1:2;
-		//TODO Unit Rates for E1-E6
+
+		String motorway_name, rate_a, rate_b, rate_3, rate_4, rate_5, rate_e1, rate_e2, rate_e3, rate_e4, rate_e5,
+				rate_e6;
+		Map<String, Float> unitRates = new HashMap<String, Float>();
+		int type = ((CheckBox) pane.lookup("#type")).isSelected() ? 1 : 2;
+		// TODO Unit Rates for E1-E6
 		motorway_name = ((TextField) pane.lookup("#motorway_name")).getText().toString();
 		rate_a = ((TextField) pane.lookup("#rate_a")).getText().toString();
 		rate_b = ((TextField) pane.lookup("#rate_b")).getText().toString();
 		rate_3 = ((TextField) pane.lookup("#rate_3")).getText().toString();
 		rate_4 = ((TextField) pane.lookup("#rate_4")).getText().toString();
 		rate_5 = ((TextField) pane.lookup("#rate_5")).getText().toString();
-		
+
 		rate_e1 = ((TextField) pane.lookup("#rate_e1")).getText().toString();
 		rate_e2 = ((TextField) pane.lookup("#rate_e2")).getText().toString();
 		rate_e3 = ((TextField) pane.lookup("#rate_e3")).getText().toString();
@@ -199,29 +201,30 @@ public class MotorwayView {
 		unitRates.put("3", Float.parseFloat(rate_3));
 		unitRates.put("4", Float.parseFloat(rate_4));
 		unitRates.put("5", Float.parseFloat(rate_5));
-		
+
 		unitRates.put("E1", Float.parseFloat(rate_e1));
 		unitRates.put("E2", Float.parseFloat(rate_e2));
 		unitRates.put("E3", Float.parseFloat(rate_e3));
 		unitRates.put("E4", Float.parseFloat(rate_e4));
 		unitRates.put("E5", Float.parseFloat(rate_e5));
 		unitRates.put("E6", Float.parseFloat(rate_e6));
-		
-		if(MotorwayController.create(motorway_name, unitRates, type)) {
+
+		if (MotorwayController.create(motorway_name, unitRates, type)) {
 			Alert alert = new Alert(AlertType.INFORMATION, "Autostrada creata", ButtonType.OK);
 			alert.showAndWait();
-			if (alert.getResult() == ButtonType.OK) alert.close();
+			if (alert.getResult() == ButtonType.OK)
+				alert.close();
 
-		}else{
+		} else {
 			Alert alert = new Alert(AlertType.ERROR, "Autostrada già inserita", ButtonType.OK);
 			alert.showAndWait();
 
-			if (alert.getResult() == ButtonType.OK) alert.close();
+			if (alert.getResult() == ButtonType.OK)
+				alert.close();
 		}
-		
+
 		show();
-		
+
 	}
-  
-	
+
 }

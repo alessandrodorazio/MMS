@@ -17,14 +17,14 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </Label>
-      <ComboBox fx:id="vehicle" layoutX="14.0" layoutY="100.0" prefWidth="150.0" />
+      <ComboBox fx:id="vehicle" layoutX="14.0" layoutY="86.0" prefHeight="26.0" prefWidth="287.0" />
       <Label layoutX="14.0" layoutY="70.0" text="Veicolo" />
-      <ComboBox fx:id="tollbooth_in" layoutX="14.0" layoutY="190.0" prefWidth="150.0" />
+      <ComboBox fx:id="tollbooth_in" layoutX="14.0" layoutY="176.0" prefHeight="26.0" prefWidth="287.0" />
       <Label layoutX="14.0" layoutY="160.0" text="Casello entrata" />
-      <ComboBox fx:id="tollbooth_out" layoutX="306.0" layoutY="190.0" prefWidth="150.0" />
-      <Label layoutX="306.0" layoutY="160.0" text="Casello uscita" />
-      <Button layoutX="502.0" layoutY="426.0" mnemonicParsing="false" onAction="#tollCalcBtn" styleClass="btn_save" text="Salva" />
-      <Label fx:id="cost" layoutX="14.0" layoutY="293.0" />
+      <ComboBox fx:id="tollbooth_out" layoutX="14.0" layoutY="287.0" prefHeight="26.0" prefWidth="287.0" />
+      <Label layoutX="16.0" layoutY="271.0" text="Casello uscita" />
+      <Button layoutX="224.0" layoutY="357.0" mnemonicParsing="false" onAction="#tollCalcBtn" styleClass="btn_save" text="Calcola" />
+      <Label fx:id="cost" layoutX="346.0" layoutY="78.0" prefHeight="252.0" prefWidth="240.0" />
       
    </children>
 </AnchorPane>
