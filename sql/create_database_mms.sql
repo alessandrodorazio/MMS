@@ -3,6 +3,7 @@ CREATE DATABASE MMS;
 CREATE TABLE Motorway (
   id int NOT NULL AUTO_INCREMENT,
   name varchar(255) NOT NULL,
+  type integer NOT NULL, //1=flat, 2=mountain
   PRIMARY KEY (id)
 );
 

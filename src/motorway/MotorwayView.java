@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -117,12 +118,12 @@ public class MotorwayView {
 		rate_5.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("5")));
 
 		//ERROR IF NOT ADDED AFTER 2021
-		rate_e1.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
-		rate_e2.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
-		rate_e3.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
-		rate_e4.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
-		rate_e5.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
-		rate_e6.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("A")));
+		rate_e1.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("E1")));
+		rate_e2.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("E2")));
+		rate_e3.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("E3")));
+		rate_e4.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("E4")));
+		rate_e5.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("E5")));
+		rate_e6.setText(Float.toString(Motorway.getInstance().getUnitRateSingle("E6")));
 
         root.getChildren().setAll(pane);
         
@@ -175,7 +176,9 @@ public class MotorwayView {
 	@FXML
 	void btn_save_create(ActionEvent event) {
 		
-		String motorway_name, rate_a, rate_b, rate_3, rate_4, rate_5;
+		String motorway_name, rate_a, rate_b, rate_3, rate_4, rate_5, rate_e1, rate_e2, rate_e3, rate_e4, rate_e5, rate_e6;
+		Map<String, Float> unitRates = new HashMap<String,Float>();
+		int type = ((CheckBox) pane.lookup("#type")).isSelected()?1:2;
 		//TODO Unit Rates for E1-E6
 		motorway_name = ((TextField) pane.lookup("#motorway_name")).getText().toString();
 		rate_a = ((TextField) pane.lookup("#rate_a")).getText().toString();
@@ -184,20 +187,30 @@ public class MotorwayView {
 		rate_4 = ((TextField) pane.lookup("#rate_4")).getText().toString();
 		rate_5 = ((TextField) pane.lookup("#rate_5")).getText().toString();
 		
+		rate_e1 = ((TextField) pane.lookup("#rate_e1")).getText().toString();
+		rate_e2 = ((TextField) pane.lookup("#rate_e2")).getText().toString();
+		rate_e3 = ((TextField) pane.lookup("#rate_e3")).getText().toString();
+		rate_e4 = ((TextField) pane.lookup("#rate_e4")).getText().toString();
+		rate_e5 = ((TextField) pane.lookup("#rate_e5")).getText().toString();
+		rate_e6 = ((TextField) pane.lookup("#rate_e6")).getText().toString();
 
-		Map<String, Float> unitRates = new HashMap<String,Float>();
 		unitRates.put("A", Float.parseFloat(rate_a));
 		unitRates.put("B", Float.parseFloat(rate_b));
 		unitRates.put("3", Float.parseFloat(rate_3));
 		unitRates.put("4", Float.parseFloat(rate_4));
 		unitRates.put("5", Float.parseFloat(rate_5));
 		
-		if(MotorwayController.create(motorway_name, unitRates)) {
+		unitRates.put("E1", Float.parseFloat(rate_e1));
+		unitRates.put("E2", Float.parseFloat(rate_e2));
+		unitRates.put("E3", Float.parseFloat(rate_e3));
+		unitRates.put("E4", Float.parseFloat(rate_e4));
+		unitRates.put("E5", Float.parseFloat(rate_e5));
+		unitRates.put("E6", Float.parseFloat(rate_e6));
+		
+		if(MotorwayController.create(motorway_name, unitRates, type)) {
 			Alert alert = new Alert(AlertType.INFORMATION, "Autostrada creata", ButtonType.OK);
 			alert.showAndWait();
-
 			if (alert.getResult() == ButtonType.OK) alert.close();
-			
 
 		}else{
 			Alert alert = new Alert(AlertType.ERROR, "Autostrada già inserita", ButtonType.OK);

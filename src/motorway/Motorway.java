@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import helper.JDBC;
+import helper.Costant;
 import vehicle.Vehicle;
 
 /**
@@ -25,16 +26,18 @@ public final class Motorway {
 	
 	private String name;
 	private Map<String, Float> unitRate;
+	private float type;
 	//TODO Unit Rate E1-E6
 	
 	private Motorway() {
 		this.unitRate = new HashMap<String, Float>();
 		try {
 			Statement statement = JDBC.connect().createStatement();
-			ResultSet resultSet = statement.executeQuery( "SELECT id, name FROM Motorway LIMIT 1" );
+			ResultSet resultSet = statement.executeQuery( "SELECT id, name, type FROM Motorway LIMIT 1" );
 			while(resultSet.next() ) {
 				this.id = resultSet.getInt("id");
 				this.name = resultSet.getString("name");
+				this.type = resultSet.getInt("type");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -61,6 +64,7 @@ public final class Motorway {
 	public float getEcoRateSingle(Vehicle v) { return motorway.unitRate.get("E" + String.valueOf(v.getEnvironmentalClass())); }
 	
 	public float getUnitRateSingle(String c) { return motorway.unitRate.get(c); }
+	public float getType() { return (type==1)?Costant.mountain:Costant.flat; }
 	
 	public static void refresh() { motorway = new Motorway(); }
 	

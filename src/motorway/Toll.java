@@ -56,6 +56,7 @@ public class Toll {
         }else {
             cost = km * Motorway.getInstance().getUnitRateSingle(v) * (1 + Costant.IVA);
         }
+        cost*Motorway.getInstance().getType();
         return Helper.round(cost);
 	}
 

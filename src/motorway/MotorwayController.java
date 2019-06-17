@@ -21,7 +21,7 @@ import vehicle.Vehicle;
  */
 public class MotorwayController {
 
-	public static boolean create(String name, Map<String, Float> unitRates) {
+	public static boolean create(String name, Map<String, Float> unitRates, int type) {
 		
 		int count = 0;
 		try {
@@ -33,12 +33,13 @@ public class MotorwayController {
 		}
 		
 		if(count > 0) {
-			return false;
+			return false; //TODO already exist
 		}
 		
 		try {
-			PreparedStatement ps = JDBC.connect().prepareStatement("INSERT INTO Motorway (name) VALUES(?)");
+			PreparedStatement ps = JDBC.connect().prepareStatement("INSERT INTO Motorway (name, type) VALUES(?, ?)");
 			ps.setString(1, name);
+			ps.setInt(2, type);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -51,6 +52,19 @@ public class MotorwayController {
 			ps.setFloat(3, unitRates.get("3"));
 			ps.setFloat(4, unitRates.get("4"));
 			ps.setFloat(5, unitRates.get("5"));
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			PreparedStatement ps = JDBC.connect().prepareStatement("INSERT INTO UnitRate (category, rate) VALUES('E1',?), ('E2', ?), ('E3', ?), ('E4', ?), ('E5', ?), ('E6', ?)");
+			ps.setFloat(1, unitRates.get("E1"));
+			ps.setFloat(2, unitRates.get("E2"));
+			ps.setFloat(3, unitRates.get("E3"));
+			ps.setFloat(4, unitRates.get("E4"));
+			ps.setFloat(5, unitRates.get("E5"));
+			ps.setFloat(6, unitRates.get("E6"));
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
