@@ -6,6 +6,7 @@ package vehicle;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import helper.Helper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -144,13 +145,12 @@ public class VehicleView {
 		((Label) pane.lookup("#height")).setText(Integer.toString(v.getHeight()) + "cm");
 		((Label) pane.lookup("#weight")).setText(Integer.toString(v.getWeight()) + "kg");
 
-		if (v.getNoisePollution() != 0) {
+		if (v.getNoisePollution() != 0) 
 			((Label) pane.lookup("#noise_pollution")).setText(Integer.toString(v.getNoisePollution()) + "db");
-		} else {
+		else
 			((Label) pane.lookup("#noise_pollution")).setText("Inquinamento acustico non disponibile");
-		}
 
-		TableView table = (TableView) pane.lookup("#table");
+		TableView table = (TableView) pane.lookup("#table"); //toll history table
 
 		TableColumn inColumn = new TableColumn("Entrata");
 		inColumn.setCellValueFactory(new PropertyValueFactory<>("in"));
@@ -192,22 +192,30 @@ public class VehicleView {
 		plateNumber = ((TextField) pane.lookup("#plate_number")).getText().toString().toUpperCase();
 		brand = ((TextField) pane.lookup("#brand")).getText().toString();
 		model = ((TextField) pane.lookup("#model")).getText().toString();
-		year = Integer.parseInt(((TextField) pane.lookup("#year")).getText().toString());
-		axis = Integer.parseInt(((TextField) pane.lookup("#axis")).getText().toString());
-		weight = Integer.parseInt(((TextField) pane.lookup("#weight")).getText().toString());
-		height = Integer.parseInt(((TextField) pane.lookup("#height")).getText().toString());
+		year = Helper.intFromString( ((TextField) pane.lookup("#year")).getText().toString() );
+		axis = Helper.intFromString(((TextField) pane.lookup("#axis")).getText().toString());
+		weight = Helper.intFromString(((TextField) pane.lookup("#weight")).getText().toString());
+		height = Helper.intFromString(((TextField) pane.lookup("#height")).getText().toString());
 
+		if(plateNumber.isBlank() || axis == 0 || height ==0) {
+			Alert alert = new Alert(AlertType.ERROR, "Compila i campi obbligatori*", ButtonType.OK);
+			alert.showAndWait();
+
+			if (alert.getResult() == ButtonType.OK)
+				alert.close();
+			return ;
+		}
+		
 		if (((TextField) pane.lookup("#noise_pollution")).isEditable()) {
 			noisePollution = Integer.parseInt(((TextField) pane.lookup("#noise_pollution")).getText().toString());
 			environmentalClass = ((TextField) pane.lookup("#environmental_class")).getText().toString().charAt(0);
 			v = VehicleController.create(brand, model, plateNumber, environmentalClass, year, axis, weight, height,
 					noisePollution);
-
 		} else {
 			v = VehicleController.create(brand, model, plateNumber, year, axis, weight, height);
 		}
 
-		if (VehicleController.show(plateNumber) == null)
+		if (VehicleController.show(plateNumber) == null) //check if the vehicle already exists
 			VehicleController.store(v);
 		else
 			VehicleController.update(v);

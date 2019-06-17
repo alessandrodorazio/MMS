@@ -116,7 +116,7 @@ public class VehicleController {
 			ps.setInt(8, vehicle.getWeight());
 			ps.setInt(9, vehicle.getNoisePollution());
 			ps.setInt(10, vehicle.getEnvironmentalClass());
-			ps.setString(12, vehicle.getPlateNumber());
+			ps.setString(11, vehicle.getPlateNumber());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

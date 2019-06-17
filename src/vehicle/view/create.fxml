@@ -18,7 +18,7 @@
          </cursor>
       </Label>
       
-      <Label layoutX="14.0" layoutY="75.0" text="Targa" />
+      <Label layoutX="14.0" layoutY="75.0" text="Targa*" />
       <TextField fx:id="plate_number" layoutX="14.0" layoutY="91.0" />
       <Label layoutX="220.0" layoutY="75.0" text="Marca" />
       <TextField fx:id="brand" layoutX="220.0" layoutY="91.0" />
@@ -26,11 +26,11 @@
       <TextField fx:id="model" layoutX="427.0" layoutY="91.0" />
       <Label layoutX="14.0" layoutY="151.0" text="Anno" />
       <TextField fx:id="year" layoutX="14.0" layoutY="167.0" prefHeight="27.0" prefWidth="64.0" />
-      <Label layoutX="135.0" layoutY="151.0" text="Assi" />
+      <Label layoutX="135.0" layoutY="151.0" text="Assi*" />
        <TextField fx:id="axis" layoutX="135.0" layoutY="167.0" prefHeight="27.0" prefWidth="92.0" />
       <Label layoutX="258.0" layoutY="151.0" text="Peso (in kg)" />
       <TextField fx:id="weight" layoutX="258.0" layoutY="167.0" prefHeight="27.0" prefWidth="111.0" />
-      <Label layoutX="394.0" layoutY="151.0" text="Altezza" />
+      <Label layoutX="394.0" layoutY="151.0" text="Altezza*" />
       <TextField fx:id="height" layoutX="394.0" layoutY="167.0" />
       <Label layoutX="13.0" layoutY="228.0" text="Classe ambientale" />
       <TextField fx:id="environmental_class" editable="false" layoutX="14.0" layoutY="244.0" promptText="Non impostabile" />

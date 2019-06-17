@@ -40,7 +40,7 @@ public class TollboothView {
 		table.setRowFactory(tv -> {
 			TableRow<Tollbooth> row = new TableRow<>();
 			row.setOnMouseClicked(event -> {
-				if (event.getClickCount() == 2 && (!row.isEmpty())) {
+				if (event.getClickCount() == 2 && (!row.isEmpty())) { // if two click on a row, edit row
 					Tollbooth rowV = row.getItem();
 
 					((Label) pane.lookup("#id")).setText(String.valueOf(rowV.getId()));
@@ -75,25 +75,10 @@ public class TollboothView {
 		index();
 	}
 
-	public static void create() {
-		try {
-			pane = FXMLLoader.load(TollboothView.class.getResource("view/create.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		root.getChildren().setAll(pane);
-	}
-
 	@FXML
-	void btn_create(ActionEvent e) {
-		create();
-	}
-
-	@FXML
-	void btn_save_create(ActionEvent e) {
-		int id = Integer.valueOf(((Label) pane.lookup("#id")).getText());
-		if (id == 0) {
+	void btn_save_create(ActionEvent e) { // when click on save button
+		String id = ((Label) pane.lookup("#id")).getText();
+		if (id == "") {
 			String name = ((TextField) pane.lookup("#name")).getText().toString();
 			int km = Integer.valueOf(((TextField) pane.lookup("#km")).getText().toString());
 			TollboothController.create(name, km);
@@ -106,7 +91,7 @@ public class TollboothView {
 		} else {
 			String name = ((TextField) pane.lookup("#name")).getText().toString();
 			int km = Integer.valueOf(((TextField) pane.lookup("#km")).getText().toString());
-			TollboothController.update(id, name, km);
+			TollboothController.update(Integer.valueOf(id), name, km);
 
 			Alert alert = new Alert(AlertType.INFORMATION, "Casello aggiunto", ButtonType.OK);
 			alert.showAndWait();
@@ -119,14 +104,14 @@ public class TollboothView {
 	}
 
 	@FXML
-	void delete_tollbooth(ActionEvent e) {
+	void delete_tollbooth(ActionEvent e) { // when click on delete button
 		int id = Integer.valueOf(((Label) pane.lookup("#id")).getText().toString());
 		TollboothController.delete(id);
 		index();
 	}
 
 	@FXML
-	void reset_field(ActionEvent e) {
+	void reset_field(ActionEvent e) { // when click on reset button
 		((Label) pane.lookup("#id")).setText("");
 		((TextField) pane.lookup("#name")).setText("");
 		((TextField) pane.lookup("#km")).setText("");
